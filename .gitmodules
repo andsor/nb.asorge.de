@@ -1,3 +1,6 @@
 [submodule "plugins/ipynb"]
 	path = plugins/ipynb
 	url = git://github.com/danielfrg/pelican-ipynb.git
+[submodule "plugins/mathjax"]
+	path = plugins/mathjax
+	url = https://github.com/barrysteyn/pelican_plugin-mathjax

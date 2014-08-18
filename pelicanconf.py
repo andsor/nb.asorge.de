@@ -33,5 +33,8 @@ DEFAULT_DATE = 'fs'
 
 MARKUP = ('md', 'ipynb')
 
-PLUGIN_PATH = './plugins'
-PLUGINS = ['ipynb']
+PLUGIN_PATHS = ['plugins', 'plugins/mathjax' ]
+PLUGINS = ['ipynb', 'mathjax']
+
+THEME = 'themes/pelican-bootstrap3'
+BOOTSTRAP_THEME = 'cyborg'
