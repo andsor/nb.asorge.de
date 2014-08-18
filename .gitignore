@@ -2,3 +2,4 @@ pelican.pid
 srv.pid
 __pycache__
 cache
+content/.ipynb_checkpoints/*

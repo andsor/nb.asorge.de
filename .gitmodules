@@ -4,3 +4,6 @@
 [submodule "plugins/mathjax"]
 	path = plugins/mathjax
 	url = https://github.com/barrysteyn/pelican_plugin-mathjax
+[submodule "notebooks"]
+	path = notebooks
+	url = git@github.com:andsor/notebooks.git
