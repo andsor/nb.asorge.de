@@ -31,10 +31,13 @@ RELATIVE_URLS = True
 
 DEFAULT_DATE = 'fs'
 
-MARKUP = ('md', 'ipynb')
+MARKUP = ('md', )
 
-PLUGIN_PATHS = ['plugins', 'plugins/mathjax' ]
-PLUGINS = ['ipynb', 'mathjax']
+PLUGIN_PATHS = ['pelican-plugins']
+PLUGINS = ['liquid_tags.notebook']
 
-THEME = 'themes/pelican-bootstrap3'
-BOOTSTRAP_THEME = 'cyborg'
+THEME = 'pelican-bootstrap3'
+BOOTSTRAP_THEME = 'flatly'
+
+IGNORE_FILES = ['README.md']
+

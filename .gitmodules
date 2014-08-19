@@ -1,9 +1,9 @@
-[submodule "plugins/ipynb"]
-	path = plugins/ipynb
-	url = git://github.com/danielfrg/pelican-ipynb.git
-[submodule "plugins/mathjax"]
-	path = plugins/mathjax
-	url = https://github.com/barrysteyn/pelican_plugin-mathjax
 [submodule "notebooks"]
 	path = notebooks
 	url = git@github.com:andsor/notebooks.git
+[submodule "pelican-plugins"]
+	path = pelican-plugins
+	url = https://github.com/getpelican/pelican-plugins
+[submodule "pelican-bootstrap3"]
+	path = pelican-bootstrap3
+	url = https://github.com/DandyDev/pelican-bootstrap3
