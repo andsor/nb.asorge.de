@@ -1,74 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Notebooks</title><link>http://nb.asorge.de/</link><description></description><atom:link href="http://nb.asorge.de/feeds/andreas-sorge.rss.xml" rel="self"></atom:link><lastBuildDate>Tue, 19 Aug 2014 15:05:00 +0200</lastBuildDate><item><title>Template notebook</title><link>http://nb.asorge.de/template-ipynb.html</link><description>&lt;p&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-In&amp;nbsp;[1]:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight-ipynb"&gt;&lt;pre class="ipynb"&gt;&lt;span class="c"&gt;# numpy&lt;/span&gt;
-&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;numpy&lt;/span&gt; &lt;span class="kn"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;np&lt;/span&gt;
-
-&lt;span class="c"&gt;# import sympy and configure latex output&lt;/span&gt;
-&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;sympy&lt;/span&gt;
-&lt;span class="n"&gt;sympy&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;init_printing&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;use_unicode&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;True&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;IPython.display&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Math&lt;/span&gt;
-
-&lt;span class="c"&gt;# import and configure matplotlib&lt;/span&gt;
-&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;matplotlib&lt;/span&gt; &lt;span class="kn"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;mpl&lt;/span&gt;
-&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;matplotlib.pyplot&lt;/span&gt; &lt;span class="kn"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;plt&lt;/span&gt;
-&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;matplotlib&lt;/span&gt; &lt;span class="n"&gt;inline&lt;/span&gt;
-&lt;span class="c"&gt;## use Scalable Vector Graphics (SVG) format for figures&lt;/span&gt;
-&lt;span class="c"&gt;## remember to employ rasterized option when plotting large&lt;/span&gt;
-&lt;span class="c"&gt;## datasets to keep figure size down&lt;/span&gt;
-&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;config&lt;/span&gt; &lt;span class="n"&gt;InlineBackend&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;figure_format&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;svg&amp;quot;&lt;/span&gt;
-&lt;span class="c"&gt;## load matplotlib inline integration for base16 ipython notebook&lt;/span&gt;
-&lt;span class="c"&gt;## themes&lt;/span&gt;
-&lt;span class="c"&gt;## https://github.com/benjaminaschultz/base16-ipython-matplotlibrc&lt;/span&gt;
-&lt;span class="k"&gt;try&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
-    &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;load_ext&lt;/span&gt; &lt;span class="n"&gt;base16_mplrc&lt;/span&gt;
-    &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;base16_mplrc&lt;/span&gt;
-&lt;span class="k"&gt;except&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
-    &lt;span class="k"&gt;pass&lt;/span&gt;
-&lt;span class="n"&gt;mpl&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rcParams&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;update&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
-    &lt;span class="s"&gt;&amp;#39;figure.dpi&amp;#39;&lt;/span&gt;        &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;300&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-    &lt;span class="s"&gt;&amp;#39;savefig.dpi&amp;#39;&lt;/span&gt;       &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;300&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-    &lt;span class="s"&gt;&amp;#39;grid.color&amp;#39;&lt;/span&gt;        &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;mpl&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rcParams&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;axes.edgecolor&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
-&lt;span class="p"&gt;})&lt;/span&gt;
-
-&lt;span class="c"&gt;# load ipython cython magic&lt;/span&gt;
-&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;load_ext&lt;/span&gt; &lt;span class="n"&gt;cythonmagic&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt"&gt;&lt;/div&gt;
-&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
-&lt;pre&gt;
-
-                     Could not detect base-16 ipython notebook theme. Download base16 theme notebook theme
-                     from https://github.com/nsonnad/base16-ipython-notebook . Using &amp;apos;default&amp;apos; theme.
-
-                     Could not detect base-16 ipython notebook theme shade. Download base16 theme notebook themes
-                     from https://github.com/nsonnad/base16-ipython-notebook . Using &amp;apos;default&amp;apos; theme.
-Setting plotting theme to default-light. Palette available in b16_colors
-
-&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Andreas Sorge</dc:creator><pubDate>Tue, 19 Aug 2014 15:05:00 +0200</pubDate><guid>tag:nb.asorge.de,2014-08-19:template-ipynb.html</guid></item><item><title>Test post</title><link>http://nb.asorge.de/test.html</link><description>&lt;p&gt;Hi there&lt;/p&gt;
-&lt;p&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Notebooks</title><link>http://nb.asorge.de/</link><description></description><atom:link href="http://nb.asorge.de/feeds/andreas-sorge.rss.xml" rel="self"></atom:link><lastBuildDate>Tue, 19 Aug 2014 15:05:30 +0200</lastBuildDate><item><title>Test post</title><link>http://nb.asorge.de/test.html</link><description>&lt;p&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;
 &lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;
@@ -150,4 +81,72 @@ In&amp;nbsp;[]:
 &lt;p&gt;This is the end of the file.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Andreas Sorge</dc:creator><pubDate>Tue, 19 Aug 2014 15:05:00 +0200</pubDate><guid>tag:nb.asorge.de,2014-08-19:test.html</guid></item></channel></rss>
+&lt;/div&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Andreas Sorge</dc:creator><pubDate>Tue, 19 Aug 2014 15:05:30 +0200</pubDate><guid>tag:nb.asorge.de,2014-08-19:test.html</guid></item><item><title>Template notebook</title><link>http://nb.asorge.de/template-ipynb.html</link><description>&lt;p&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+In&amp;nbsp;[1]:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight-ipynb"&gt;&lt;pre class="ipynb"&gt;&lt;span class="c"&gt;# numpy&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;numpy&lt;/span&gt; &lt;span class="kn"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;np&lt;/span&gt;
+
+&lt;span class="c"&gt;# import sympy and configure latex output&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;sympy&lt;/span&gt;
+&lt;span class="n"&gt;sympy&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;init_printing&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;use_unicode&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;True&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;IPython.display&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Math&lt;/span&gt;
+
+&lt;span class="c"&gt;# import and configure matplotlib&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;matplotlib&lt;/span&gt; &lt;span class="kn"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;mpl&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;matplotlib.pyplot&lt;/span&gt; &lt;span class="kn"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;plt&lt;/span&gt;
+&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;matplotlib&lt;/span&gt; &lt;span class="n"&gt;inline&lt;/span&gt;
+&lt;span class="c"&gt;## use Scalable Vector Graphics (SVG) format for figures&lt;/span&gt;
+&lt;span class="c"&gt;## remember to employ rasterized option when plotting large&lt;/span&gt;
+&lt;span class="c"&gt;## datasets to keep figure size down&lt;/span&gt;
+&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;config&lt;/span&gt; &lt;span class="n"&gt;InlineBackend&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;figure_format&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;svg&amp;quot;&lt;/span&gt;
+&lt;span class="c"&gt;## load matplotlib inline integration for base16 ipython notebook&lt;/span&gt;
+&lt;span class="c"&gt;## themes&lt;/span&gt;
+&lt;span class="c"&gt;## https://github.com/benjaminaschultz/base16-ipython-matplotlibrc&lt;/span&gt;
+&lt;span class="k"&gt;try&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;load_ext&lt;/span&gt; &lt;span class="n"&gt;base16_mplrc&lt;/span&gt;
+    &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;base16_mplrc&lt;/span&gt;
+&lt;span class="k"&gt;except&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="k"&gt;pass&lt;/span&gt;
+&lt;span class="n"&gt;mpl&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rcParams&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;update&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
+    &lt;span class="s"&gt;&amp;#39;figure.dpi&amp;#39;&lt;/span&gt;        &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;300&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;&amp;#39;savefig.dpi&amp;#39;&lt;/span&gt;       &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;300&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;&amp;#39;grid.color&amp;#39;&lt;/span&gt;        &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;mpl&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rcParams&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;axes.edgecolor&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+&lt;span class="p"&gt;})&lt;/span&gt;
+
+&lt;span class="c"&gt;# load ipython cython magic&lt;/span&gt;
+&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;load_ext&lt;/span&gt; &lt;span class="n"&gt;cythonmagic&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt"&gt;&lt;/div&gt;
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;
+
+                     Could not detect base-16 ipython notebook theme. Download base16 theme notebook theme
+                     from https://github.com/nsonnad/base16-ipython-notebook . Using &amp;apos;default&amp;apos; theme.
+
+                     Could not detect base-16 ipython notebook theme shade. Download base16 theme notebook themes
+                     from https://github.com/nsonnad/base16-ipython-notebook . Using &amp;apos;default&amp;apos; theme.
+Setting plotting theme to default-light. Palette available in b16_colors
+
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Andreas Sorge</dc:creator><pubDate>Tue, 19 Aug 2014 15:05:00 +0200</pubDate><guid>tag:nb.asorge.de,2014-08-19:template-ipynb.html</guid></item></channel></rss>
