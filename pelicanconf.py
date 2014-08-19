@@ -41,3 +41,5 @@ BOOTSTRAP_THEME = 'flatly'
 
 IGNORE_FILES = ['README.md']
 
+STATIC_PATHS = ['extra/CNAME']
+EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'}, }
