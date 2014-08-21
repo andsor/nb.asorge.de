@@ -34,7 +34,7 @@ DEFAULT_DATE = 'fs'
 MARKUP = ('md', )
 
 PLUGIN_PATHS = ['pelican-plugins']
-PLUGINS = ['liquid_tags.notebook']
+PLUGINS = ['liquid_tags.notebook', 'interlinks']
 
 THEME = 'pelican-bootstrap3'
 BOOTSTRAP_THEME = 'flatly'
@@ -43,3 +43,8 @@ IGNORE_FILES = ['README.md']
 
 STATIC_PATHS = ['extra/CNAME']
 EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'}, }
+
+INTERLINKS = {
+    'nbviewer': 'http://nbviewer.ipython.org/github/andsor/notebooks/blob/master/notebooks/',
+    'pdf':      'https://github.com/andsor/notebooks/raw/master/notebooks/'
+}
