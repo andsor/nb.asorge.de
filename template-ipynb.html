@@ -168,8 +168,8 @@ init_mathjax();
 
 <link rel="canonical" href="http://nb.asorge.de/template-ipynb.html">
 
-        <meta name="author" content="Andreas Sorge" />
-        <meta name="description" content="In [1]: # numpy import numpy as np # import sympy and configure latex output import sympy sympy.init_printing(use_unicode=True) from IPython.display import Math # import and configure matplotlib import matplotlib as mpl import matplotlib.pyplot as plt %matplotlib inline ## use Scalable Vector Graphics (SVG) format for figures ## remember to employ ..." />
+        <meta name="author" content="" />
+        <meta name="keywords" content="" />
 
 
 
@@ -233,22 +233,26 @@ Notebooks            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-08-19T15:05:00.465025"> Di 19 August 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-08-21T00:00:00"> Do 21 August 2014</time>
     </span>
 
 
 
+<span class="label label-default">Tags</span>
+	<a href="http://nb.asorge.de/tag/.html"></a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>
+                <p><strong><a href="http://nbviewer.ipython.org/github/andsor/notebooks/blob/master/notebooks/template.ipynb">View this notebook in nbviewer</a> | <a href="https://github.com/andsor/notebooks/raw/master/notebooks/template.pdf">Get
+PDF</a> </strong></p>
+<p>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[1]:
+In [1]:
 </div>
 <div class="inner_cell">
-    <div class="input_area">
+<div class="input_area">
 <div class="highlight-ipynb"><pre class="ipynb"><span class="c"># numpy</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
@@ -264,7 +268,7 @@ In&nbsp;[1]:
 <span class="c">## use Scalable Vector Graphics (SVG) format for figures</span>
 <span class="c">## remember to employ rasterized option when plotting large</span>
 <span class="c">## datasets to keep figure size down</span>
-<span class="o">%</span><span class="k">config</span> <span class="n">InlineBackend</span><span class="o">.</span><span class="n">figure_format</span> <span class="o">=</span> <span class="s">&quot;svg&quot;</span>
+<span class="o">%</span><span class="k">config</span> <span class="n">InlineBackend</span><span class="o">.</span><span class="n">figure_format</span> <span class="o">=</span> <span class="s">"svg"</span>
 <span class="c">## load matplotlib inline integration for base16 ipython notebook</span>
 <span class="c">## themes</span>
 <span class="c">## https://github.com/benjaminaschultz/base16-ipython-matplotlibrc</span>
@@ -274,41 +278,35 @@ In&nbsp;[1]:
 <span class="k">except</span><span class="p">:</span>
     <span class="k">pass</span>
 <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
-    <span class="s">&#39;figure.dpi&#39;</span>        <span class="p">:</span> <span class="mi">300</span><span class="p">,</span>
-    <span class="s">&#39;savefig.dpi&#39;</span>       <span class="p">:</span> <span class="mi">300</span><span class="p">,</span>
-    <span class="s">&#39;grid.color&#39;</span>        <span class="p">:</span> <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s">&#39;axes.edgecolor&#39;</span><span class="p">],</span>
+    <span class="s">'figure.dpi'</span>        <span class="p">:</span> <span class="mi">300</span><span class="p">,</span>
+    <span class="s">'savefig.dpi'</span>       <span class="p">:</span> <span class="mi">300</span><span class="p">,</span>
+    <span class="s">'grid.color'</span>        <span class="p">:</span> <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s">'xtick.color'</span><span class="p">],</span>
 <span class="p">})</span>
 
 <span class="c"># load ipython cython magic</span>
 <span class="o">%</span><span class="k">load_ext</span> <span class="n">cythonmagic</span>
 </pre></div>
-
 </div>
 </div>
 </div>
-
 <div class="output_wrapper">
 <div class="output">
-
-
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 
                      Could not detect base-16 ipython notebook theme. Download base16 theme notebook theme
-                     from https://github.com/nsonnad/base16-ipython-notebook . Using &apos;default&apos; theme.
+                     from https://github.com/nsonnad/base16-ipython-notebook . Using &amp;apos;default&amp;apos; theme.
 
                      Could not detect base-16 ipython notebook theme shade. Download base16 theme notebook themes
-                     from https://github.com/nsonnad/base16-ipython-notebook . Using &apos;default&apos; theme.
+                     from https://github.com/nsonnad/base16-ipython-notebook . Using &amp;apos;default&amp;apos; theme.
 Setting plotting theme to default-light. Palette available in b16_colors
 
 </pre>
 </div>
 </div>
-
 </div>
 </div>
-
 </div></p>
             </div>
             <!-- /.entry-content -->
@@ -326,6 +324,11 @@ Setting plotting theme to default-light. Palette available in b16_colors
 
                 <li class="list-group-item"><a href="http://nb.asorge.de/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
                     <ul class="list-group " id="tags">
+                        <li class="list-group-item tag-4">
+                            <a href="http://nb.asorge.de/tag/.html">
+                                
+                            </a>
+                        </li>
                     </ul>
                 </li>    
 
