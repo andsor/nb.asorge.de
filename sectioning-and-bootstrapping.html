@@ -2,7 +2,7 @@
 <html lang="en"
 >
 <head>
-    <title>Template notebook - Notebooks</title>
+    <title>Sectioning & Bootstrapping - Notebooks</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -166,10 +166,10 @@ init_mathjax = function() {
 init_mathjax();
 </script>
 
-<link rel="canonical" href="http://nb.asorge.de/template-ipynb.html">
+<link rel="canonical" href="http://nb.asorge.de/sectioning-and-bootstrapping.html">
 
         <meta name="author" content="" />
-        <meta name="keywords" content="" />
+        <meta name="keywords" content="diss" />
 
 
 
@@ -200,10 +200,10 @@ Notebooks            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                        <li class="active">
+                        <li >
                             <a href="http://nb.asorge.de/category/misc.html">Misc</a>
                         </li>
-                        <li >
+                        <li class="active">
                             <a href="http://nb.asorge.de/category/snippets.html">Snippets</a>
                         </li>
             </ul>
@@ -223,10 +223,10 @@ Notebooks            </a>
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="http://nb.asorge.de/template-ipynb.html"
+                    <a href="http://nb.asorge.de/sectioning-and-bootstrapping.html"
                        rel="bookmark"
-                       title="Permalink to Template notebook">
-                        Template notebook
+                       title="Permalink to Sectioning & Bootstrapping">
+                        Sectioning & Bootstrapping
                     </a>
                 </h1>
             </header>
@@ -242,11 +242,12 @@ Notebooks            </a>
 
 
 <span class="label label-default">Tags</span>
-	<a href="http://nb.asorge.de/tag/.html"></a>
+	<a href="http://nb.asorge.de/tag/diss.html">diss</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p><strong><a href="http://nbviewer.ipython.org/github/andsor/notebooks/blob/master/notebooks/template.ipynb">View this notebook in nbviewer</a> | <a href="https://github.com/andsor/notebooks/raw/master/notebooks/template.pdf">Get
+                <p><strong><a href="http://nbviewer.ipython.org/github/andsor/notebooks/blob/master/notebooks/sectioning-and-bootstrapping.ipynb">View this notebook in
+nbviewer</a> | <a href="https://github.com/andsor/notebooks/raw/master/notebooks/sectioning-and-bootstrapping.pdf">Get
 PDF</a> </strong></p>
 <p>
 <div class="cell border-box-sizing text_cell rendered">
@@ -257,68 +258,99 @@ PDF</a> </strong></p>
 <p><a href="http://github.com/andsor/notebooks">This work</a> is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/">Creative
 Commons Attribution 4.0 International
 License</a>.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">
-In [1]:
-</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight-ipynb"><pre class="ipynb"><span class="c"># numpy</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-
-<span class="c"># import sympy and configure latex output</span>
-<span class="kn">import</span> <span class="nn">sympy</span>
-<span class="n">sympy</span><span class="o">.</span><span class="n">init_printing</span><span class="p">(</span><span class="n">use_unicode</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Math</span>
-
-<span class="c"># import and configure matplotlib</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="kn">as</span> <span class="nn">mpl</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-<span class="o">%</span><span class="k">matplotlib</span> <span class="n">inline</span>
-<span class="c">## use Scalable Vector Graphics (SVG) format for figures</span>
-<span class="c">## remember to employ rasterized option when plotting large</span>
-<span class="c">## datasets to keep figure size down</span>
-<span class="o">%</span><span class="k">config</span> <span class="n">InlineBackend</span><span class="o">.</span><span class="n">figure_format</span> <span class="o">=</span> <span class="s">"svg"</span>
-<span class="c">## load matplotlib inline integration for base16 ipython notebook</span>
-<span class="c">## themes</span>
-<span class="c">## https://github.com/benjaminaschultz/base16-ipython-matplotlibrc</span>
-<span class="k">try</span><span class="p">:</span>
-    <span class="o">%</span><span class="k">load_ext</span> <span class="n">base16_mplrc</span>
-    <span class="o">%</span><span class="k">base16_mplrc</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="k">pass</span>
-<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
-    <span class="s">'figure.dpi'</span>        <span class="p">:</span> <span class="mi">300</span><span class="p">,</span>
-    <span class="s">'savefig.dpi'</span>       <span class="p">:</span> <span class="mi">300</span><span class="p">,</span>
-    <span class="s">'grid.color'</span>        <span class="p">:</span> <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s">'xtick.color'</span><span class="p">],</span>
-<span class="p">})</span>
-
-<span class="c"># load ipython cython magic</span>
-<span class="o">%</span><span class="k">load_ext</span> <span class="n">cythonmagic</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>
-
-                     Could not detect base-16 ipython notebook theme. Download base16 theme notebook theme
-                     from https://github.com/nsonnad/base16-ipython-notebook . Using &amp;apos;default&amp;apos; theme.
-
-                     Could not detect base-16 ipython notebook theme shade. Download base16 theme notebook themes
-                     from https://github.com/nsonnad/base16-ipython-notebook . Using &amp;apos;default&amp;apos; theme.
-Setting plotting theme to default-light. Palette available in b16_colors
-
-</pre>
-</div>
-</div>
+<h1 id="sectioning-and-bootstrapping">Sectioning and bootstrapping</h1>
+<p>The following presentation is based on the excellent textbook by Asmussen and
+Glynn <cite data-cite="Asmussen2007Stochastic">(<a href="http://dx.doi.org/10.1007/978-0-387-69033-9">Asmussen &amp; Glynn,
+2007</a>)</cite>.</p>
+<p>Given a random element $X$, its distribution $F$, and some real-valued
+functional $\psi$, we would like to estimate $\psi(F)$ and its $1-\alpha$
+confidence interval without further assumptions.
+For example, the mean is the
+functional $\psi(F) = \int x F(dx)$, where $dx$ is the probability to find $X$
+in $dx$.</p>
+<p>Given $R$ independent samples $X_1, \ldots, X_R$ from $F$, an estimate for
+$\psi(F)$ is $\psi(\hat{F}_R)$, where</p>
+<p>$$
+\hat{F}_R(dx) := \frac{1}{R} \sum_{r=1}^R \delta_{X_r}(dx)
+$$</p>
+<p>is the <em>empirical distribution</em> and $\delta_{X_r}(A) = 1 \Leftrightarrow X_r
+\in A$.</p>
+<p>For real-valued random variables, the empirical cumulative distribution
+function is</p>
+<p>$$
+\hat{F}_R(x) := \frac{1}{R} \sum_{r=1}^R \mathbb{1}_{\{X_r \leq x \}}.
+$$</p>
+<p>As $R \to \infty$, we have $\psi(\hat{F}_R) \to \psi(F)$ almost surely <cite data-cite="Asmussen2007Stochastic">(<a href="http://dx.doi.org/10.1007/978-0-387-69033-9">Asmussen &amp; Glynn, 2007</a>)</cite>.
+Furthermore, we have a central limit theorem such that $\psi(\hat{F}_R)$ is
+distributed as $\psi(F) + Y$, where $Y \sim \mathcal{N}(0, \sigma/\sqrt{R})$.</p>
+<h2 id="sectioning">Sectioning</h2>
+<p><em>Sectioning</em> means splitting the sample into $N$ subsamples (sections) of size
+$K$. The empirical distribution of the $n$-th section is</p>
+<p>$$
+\hat{F}_{n,K}(dx) := \frac{1}{K} \sum_{r=(n-1)K + 1}^{nK} \delta_{X_r}(dx).
+$$</p>
+<p>The $1 - \alpha$ confidence interval for the estimator $\psi(\hat{F})$ is</p>
+<p>$$
+\psi(\hat{F}) \pm t_{1-\alpha/2} \frac{\hat{\sigma}}{\sqrt{N}},
+$$</p>
+<p>where $t_{1-\alpha/2}$ is the critical value of the Student t distribution with
+$N-1$ degrees of freedom and the estimator for the variance</p>
+<p>$$
+\hat{\sigma}^2 := \frac{1}{N-1} \sum_{n=1}^N \left(\psi(\hat{F}_{n,K}) -
+\psi(\hat{F}_R) \right)^2.
+$$</p>
+<p>The number of sections needs to be sufficiently large in order for the central
+limit theorem to approximately hold.</p>
+<h2 id="bootstrapping">Bootstrapping</h2>
+<p>When a model for the distribution $F$ is lacking, or too complicated for
+statistical inference, bootstrapping methods provide alternatives.
+Bootstrapping takes the empirical distribution $\hat{F}_R$ as a surrogate for
+the true distribution $F$.
+Instead of drawing more samples from $F$, bootstrapping involves resampling
+from $\hat{F}_R$.</p>
+<p>The true $1 - \alpha$ confidence interval of the estimator $\psi(\hat{F}_R)$ is</p>
+<p>$$
+(\psi(\hat{F}_R) - z_2, \psi(\hat{F}_R) - z_1)
+$$</p>
+<p>with the $\alpha/2$ and $1 - \alpha/2$ quantiles $z_1, z_2$</p>
+<p>$$
+P(\psi(\hat{F}_R) - \psi(F) &lt; z_1) = P(\psi(\hat{F}_R) - \psi(F) &gt; z_2) =
+\frac{\alpha}{2}
+$$</p>
+<p>such that</p>
+<p>$$
+P(\psi(F) \in (\psi(\hat{F}_R) - z_2, \psi(\hat{F}_R) - z_1)) = 1 - \alpha.
+$$</p>
+<p>Assuming that $\hat{F}_R \approx F$, the empirical quantiles $z_1^*, z_2^*$
+satisfy <cite data-cite="Asmussen2007Stochastic">(<a href="http://dx.doi.org/10.1007/978-0-387-69033-9">Asmussen &amp; Glynn,
+2007</a>)</cite></p>
+<p>$$
+P_{\hat{F}_R}(\psi(\hat{F}_R) - \psi(F) &lt; z_1^*) =
+P_{\hat{F}_R}(\psi(\hat{F}_R) - \psi(F) &gt; z_2^*) =
+\frac{\alpha}{2}
+$$</p>
+<p>We draw $B$ bootstrap samples of size $R$ from $\hat{F}_R$.
+The $b$-th bootstrap sample is $X_{1,b}^*, \ldots, X_{R,b}^*$ with each random
+variable $X_{r,b}^*$ drawn independently from $X_1, \ldots, X_R$ with equal
+probabilities $P(X_{r,b}^* = X_{r'}) = \frac{1}{R}$.
+The empirical distribution of the $b$-th bootstrap sample is</p>
+<p>$$
+\hat{F}_{R,b}^*(dx) := \frac{1}{R} \sum_{r=1}^R \delta_{X_{r,b}^*}(dx).
+$$</p>
+<p>Then the empirical quantiles $z_1^*, z_2^*$ are the $\lfloor
+\frac{\alpha}{2}(B+1) \rfloor$-th and $\lfloor (1 - \frac{\alpha}{2})(B+1)
+\rfloor$-th order statistic, respectively, of the $B$ independent and
+identically distributed random variables</p>
+<p>$$
+\left( \psi(\hat{F}_{R,b}^*) - \psi(\hat{F}_R) \right)_{b=1}^B.
+$$</p>
+<p>These quantiles $z_1^*, z_2^*$ approximate the quantiles $z_1, z_2$ of the true
+distribution $F$, and hence, yield the approximate $1 - \alpha$ confidence
+interval <cite data-cite="Asmussen2007Stochastic">(<a href="http://dx.doi.org/10.1007/978-0-387-69033-9">Asmussen &amp; Glynn,
+2007</a>)</cite></p>
+<p>$$
+\left( \psi(\hat{F}_R) - z_2^*, \psi(\hat{F}_R) - z_1^* \right).
+$$</p>
 </div>
 </div>
 </div></p>

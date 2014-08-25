@@ -2,7 +2,7 @@
 <html lang="en"
 >
 <head>
-    <title>Template notebook - Notebooks</title>
+    <title>diss - Notebooks</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -166,11 +166,16 @@ init_mathjax = function() {
 init_mathjax();
 </script>
 
-<link rel="canonical" href="http://nb.asorge.de/template-ipynb.html">
 
-        <meta name="author" content="" />
-        <meta name="keywords" content="" />
+    <meta name="author" content="Andreas Sorge" />
+    <meta name="keywords" content="diss" />
 
+    <!-- Open Graph tags -->
+        <meta property="og:site_name" content="Notebooks" />
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="Notebooks"/>
+        <meta property="og:url" content="http://nb.asorge.de"/>
+        <meta property="og:description" content="Notebooks"/>
 
 
     <!-- Bootstrap -->
@@ -200,7 +205,7 @@ Notebooks            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                        <li class="active">
+                        <li >
                             <a href="http://nb.asorge.de/category/misc.html">Misc</a>
                         </li>
                         <li >
@@ -219,113 +224,13 @@ Notebooks            </a>
     <div class="row">
         <div class="col-sm-9">
 
-    <section id="content">
-        <article>
-            <header class="page-header">
-                <h1>
-                    <a href="http://nb.asorge.de/template-ipynb.html"
-                       rel="bookmark"
-                       title="Permalink to Template notebook">
-                        Template notebook
-                    </a>
-                </h1>
-            </header>
-            <div class="entry-content">
-                <div class="panel">
-                    <div class="panel-body">
-<footer class="post-info">
-    <span class="label label-default">Date</span>
-    <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-08-25T00:00:00"> Mo 25 August 2014</time>
-    </span>
-
-
-
-<span class="label label-default">Tags</span>
-	<a href="http://nb.asorge.de/tag/.html"></a>
-    
-</footer><!-- /.post-info -->                    </div>
+            <article>
+                <h2><a href="http://nb.asorge.de/sectioning-and-bootstrapping.html">Sectioning & Bootstrapping</a></h2>
+                <div class="summary">
+                    <a class="btn btn-default btn-xs" href="http://nb.asorge.de/sectioning-and-bootstrapping.html">more ...</a>
                 </div>
-                <p><strong><a href="http://nbviewer.ipython.org/github/andsor/notebooks/blob/master/notebooks/template.ipynb">View this notebook in nbviewer</a> | <a href="https://github.com/andsor/notebooks/raw/master/notebooks/template.pdf">Get
-PDF</a> </strong></p>
-<p>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><a href="http://github.com/andsor/notebooks">This work</a> is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/">Creative
-Commons Attribution 4.0 International
-License</a>.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">
-In [1]:
-</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight-ipynb"><pre class="ipynb"><span class="c"># numpy</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-
-<span class="c"># import sympy and configure latex output</span>
-<span class="kn">import</span> <span class="nn">sympy</span>
-<span class="n">sympy</span><span class="o">.</span><span class="n">init_printing</span><span class="p">(</span><span class="n">use_unicode</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Math</span>
-
-<span class="c"># import and configure matplotlib</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="kn">as</span> <span class="nn">mpl</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-<span class="o">%</span><span class="k">matplotlib</span> <span class="n">inline</span>
-<span class="c">## use Scalable Vector Graphics (SVG) format for figures</span>
-<span class="c">## remember to employ rasterized option when plotting large</span>
-<span class="c">## datasets to keep figure size down</span>
-<span class="o">%</span><span class="k">config</span> <span class="n">InlineBackend</span><span class="o">.</span><span class="n">figure_format</span> <span class="o">=</span> <span class="s">"svg"</span>
-<span class="c">## load matplotlib inline integration for base16 ipython notebook</span>
-<span class="c">## themes</span>
-<span class="c">## https://github.com/benjaminaschultz/base16-ipython-matplotlibrc</span>
-<span class="k">try</span><span class="p">:</span>
-    <span class="o">%</span><span class="k">load_ext</span> <span class="n">base16_mplrc</span>
-    <span class="o">%</span><span class="k">base16_mplrc</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="k">pass</span>
-<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
-    <span class="s">'figure.dpi'</span>        <span class="p">:</span> <span class="mi">300</span><span class="p">,</span>
-    <span class="s">'savefig.dpi'</span>       <span class="p">:</span> <span class="mi">300</span><span class="p">,</span>
-    <span class="s">'grid.color'</span>        <span class="p">:</span> <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s">'xtick.color'</span><span class="p">],</span>
-<span class="p">})</span>
-
-<span class="c"># load ipython cython magic</span>
-<span class="o">%</span><span class="k">load_ext</span> <span class="n">cythonmagic</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>
-
-                     Could not detect base-16 ipython notebook theme. Download base16 theme notebook theme
-                     from https://github.com/nsonnad/base16-ipython-notebook . Using &amp;apos;default&amp;apos; theme.
-
-                     Could not detect base-16 ipython notebook theme shade. Download base16 theme notebook themes
-                     from https://github.com/nsonnad/base16-ipython-notebook . Using &amp;apos;default&amp;apos; theme.
-Setting plotting theme to default-light. Palette available in b16_colors
-
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div></p>
-            </div>
-            <!-- /.entry-content -->
-        </article>
-    </section>
+            </article>
+            <hr/>
 
         </div>
         <div class="col-sm-3 well well-sm" id="sidebar">
