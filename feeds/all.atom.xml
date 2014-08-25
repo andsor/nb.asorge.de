@@ -1,5 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Notebooks</title><link href="http://nb.asorge.de/" rel="alternate"></link><link href="http://nb.asorge.de/feeds/all.atom.xml" rel="self"></link><id>http://nb.asorge.de/</id><updated>2014-08-25T00:00:00+02:00</updated><entry><title>Sectioning &amp; Bootstrapping</title><link href="http://nb.asorge.de/sectioning-and-bootstrapping.html" rel="alternate"></link><updated>2014-08-25T00:00:00+02:00</updated><author><name></name></author><id>tag:nb.asorge.de,2014-08-25:sectioning-and-bootstrapping.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;&lt;a href="http://nbviewer.ipython.org/github/andsor/notebooks/blob/master/notebooks/sectioning-and-bootstrapping.ipynb"&gt;View this notebook in
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Notebooks</title><link href="http://nb.asorge.de/" rel="alternate"></link><link href="http://nb.asorge.de/feeds/all.atom.xml" rel="self"></link><id>http://nb.asorge.de/</id><updated>2014-08-25T00:00:00+02:00</updated><entry><title>Confidence Intervals for Binomial Proportions</title><link href="http://nb.asorge.de/confidence-intervals-for-binomial-proportions.html" rel="alternate"></link><updated>2014-08-25T00:00:00+02:00</updated><author><name></name></author><id>tag:nb.asorge.de,2014-08-25:confidence-intervals-for-binomial-proportions.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;&lt;a href="http://nbviewer.ipython.org/github/andsor/notebooks/blob/master/notebooks/confidence-intervals-for-binomial-proportions.ipynb"&gt;View this notebook in
+nbviewer&lt;/a&gt; | &lt;a href="https://github.com/andsor/notebooks/raw/master/notebooks/confidence-intervals-for-binomial-proportions.pdf"&gt;Get
+PDF&lt;/a&gt; &lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h1 id="confidence-intervals-for-binomial-proportions"&gt;Confidence Intervals for Binomial Proportions&lt;/h1&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+In []:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="input_area"&gt;
+&lt;div class="highlight-ipynb"&gt;&lt;pre class="ipynb"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;scipy.stats.distributions&lt;/span&gt; &lt;span class="kn"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;dist&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;Consider a discrete random variable $X$ which indicates either "success"
+($X=1$) or "failure" ($X=0$) as the outcome of a random experiment.
+Such an experiment is called a &lt;em&gt;Bernoulli trial&lt;/em&gt;.
+The probability of success is $p=P\{X=1\}$, and the probability of failure is
+$P\{X=0\}=1-p$.
+Repeating a Bernoulli trial $n$ times means drawing a sample of $n$ independent
+and identically distributed random variables $X_i$.
+The probability mass function of observing $k$ success is the binomial
+distribution&lt;/p&gt;
+&lt;p&gt;$$
+\binom{n}{k} p^k (1-p)^{n-k}.
+$$&lt;/p&gt;
+&lt;p&gt;The expected number of successes is $np$ with variance $np(1-p)$.
+Hence, the success probability $p$ is the expected &lt;em&gt;proportion&lt;/em&gt; of successes
+$\frac{k}{n}$, with variance $p(1-p)/n$.&lt;/p&gt;
+&lt;p&gt;Let $\hat{p}:=\frac{k}{n}$ denote the sample proportion which is the unbiased
+(and maximum likelihood) estimator for the success probability $p$, and let
+$\hat{\sigma} := \hat{p}(1-\hat{p})/n$ denote the sample variance.
+Then the normal $1-\alpha$ confidence interval for the binomial proportion
+$\hat{p}$ is&lt;/p&gt;
+&lt;p&gt;$$
+\hat{p} \pm z_{\alpha/2} \hat{\sigma},
+$$&lt;/p&gt;
+&lt;p&gt;where $z_{\alpha/2}$ is the $1 - \frac{\alpha}{2}$ quantile of the standard
+normal distribution.
+This normal confidence interval is also called the &lt;em&gt;Wald confidence interval&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;As Cameron &lt;cite data-cite="Cameron2011Estimation"&gt;(&lt;a href="http://dx.doi.org/10.1071/as10046"&gt;Cameron, 2011&lt;/a&gt;)&lt;/cite&gt;
+puts it, this normal approximation "suffers a &lt;em&gt;systematic&lt;/em&gt; decline in
+performance both for small $n$ and towards extreme values of $p$ near $0$ and
+$1$, generating binomial [confidence intervals] with effective coverage far
+below the desired level." (see also &lt;cite data-cite="Agresti1998Approximate"&gt;(&lt;a href="http://dx.doi.org/10.2307/2685469"&gt;Agresti &amp;amp; Coull, 1998&lt;/a&gt;)&lt;/cite&gt; and 
+&lt;cite data-cite="DasGupta2001Interval"&gt;(&lt;a href="http://dx.doi.org/10.1214/ss/1009213286"&gt;DasGupta et al., 2001&lt;/a&gt;)&lt;/cite&gt;)&lt;/p&gt;
+&lt;p&gt;A different approach to quantifying uncertainty is Bayesian inference.
+The normal (frequentist) $1 - \alpha$ confidence interval derives from a
+procedure that produces $1 - \alpha$ confidence intervals that contain the true
+parameter value $100(1-\alpha)\%$ of the times.
+The $1-\alpha$ credible interval of Bayesian inference is the interval in which
+the parameter lies with probability $1-\alpha$. 
+&lt;cite data-cite="Wasserman2004All"&gt;(&lt;a href="http://dx.doi.org/10.1007/978-0-387-21736-9"&gt;Wasserman, 2004&lt;/a&gt;)&lt;/cite&gt;&lt;/p&gt;
+&lt;p&gt;Specifically, Bayesian inference employes Bayes' theorem
+$$
+P(A|B) = \frac{P(B|A) P(A)}{P(B)}.
+$$
+Associate $A$ with the parameter and $B$ with the outcome from an experiment
+(the data).
+Then $P(A)$ is the &lt;em&gt;prior&lt;/em&gt; probability of the parameter event $A$, with the
+&lt;em&gt;likelihood&lt;/em&gt; $P(B|A)$ of the outcome event $B$ given the parameter event $A$.
+The &lt;em&gt;posterior&lt;/em&gt; $P(A|B)$ is the probability of the parameter event $A$ given
+the outcome event $B$.&lt;/p&gt;
+&lt;p&gt;For probability density functions, this reads
+$$
+f(\theta|x) = \frac{f(x|\theta) f(\theta)}{\int d\theta f(\theta|x)f(\theta)}
+$$
+with parameter $\theta$ and data $x$.
+A Bayesian interval estimate is the $1 - \alpha$ &lt;em&gt;posterior interval&lt;/em&gt; or
+&lt;em&gt;credible interval&lt;/em&gt; $(l,u)$ with $\int_{-\infty}^l d\theta f(\theta|x) =
+\int_{u}^{+\infty} d\theta f(\theta | x) = \alpha/2$ such that $P(\theta \in
+(l,u)|x) = 1 - \alpha$.&lt;/p&gt;
+&lt;p&gt;For $n$ independent Bernoulli trials with common success probability $p$, the
+&lt;em&gt;likelihood&lt;/em&gt; to have $k$ successes given $p$ is the binomial distribution
+$$
+P(k|p) = \binom{n}{k} p^k (1-p)^{n-k} \equiv B(a,b),
+$$
+where $B(a,b)$ is the &lt;em&gt;Beta distribution&lt;/em&gt; with parameters $a = k+1$ and $b = n
+- k + 1$.
+Assuming a uniform prior $P(p) = 1$, the &lt;em&gt;posterior&lt;/em&gt; is &lt;cite data-cite="Wasserman2004All"&gt;(&lt;a href="http://dx.doi.org/10.1007/978-0-387-21736-9"&gt;Wasserman, 2004&lt;/a&gt;)&lt;/cite&gt;
+$$
+P(p|k) = P(k|p)=B(a,b).
+$$
+A point estimate is the posterior mean
+$$
+\bar{p} = \frac{k+1}{n+2}
+$$
+with $1 - \alpha$ credible interval $(p_l, p_u)$ given by
+$$
+\int_0^{p_l} dp B(a,b) = \int_{p_u}^1 dp B(a,b) = \frac{\alpha}{2}.
+$$&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;&lt;a href="http://notebooks.asorge.de"&gt;This work&lt;/a&gt; is licensed under a &lt;a href="http://creativecommons.org/licenses/by/4.0/"&gt;Creative
+Commons Attribution 4.0 International
+License&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/p&gt;</summary><category term="statistics"></category><category term="diss"></category></entry><entry><title>Sectioning &amp; Bootstrapping</title><link href="http://nb.asorge.de/sectioning-and-bootstrapping.html" rel="alternate"></link><updated>2014-08-25T00:00:00+02:00</updated><author><name></name></author><id>tag:nb.asorge.de,2014-08-25:sectioning-and-bootstrapping.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;&lt;a href="http://nbviewer.ipython.org/github/andsor/notebooks/blob/master/notebooks/sectioning-and-bootstrapping.ipynb"&gt;View this notebook in
 nbviewer&lt;/a&gt; | &lt;a href="https://github.com/andsor/notebooks/raw/master/notebooks/sectioning-and-bootstrapping.pdf"&gt;Get
 PDF&lt;/a&gt; &lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;
@@ -8,9 +123,6 @@ PDF&lt;/a&gt; &lt;/strong&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;&lt;a href="http://notebooks.asorge.de"&gt;This work&lt;/a&gt; is licensed under a &lt;a href="http://creativecommons.org/licenses/by/4.0/"&gt;Creative
-Commons Attribution 4.0 International
-License&lt;/a&gt;.&lt;/p&gt;
 &lt;h1 id="sectioning-and-bootstrapping"&gt;Sectioning and bootstrapping&lt;/h1&gt;
 &lt;p&gt;The following presentation is based on the excellent textbook by Asmussen and
 Glynn &lt;cite data-cite="Asmussen2007Stochastic"&gt;(&lt;a href="http://dx.doi.org/10.1007/978-0-387-69033-9"&gt;Asmussen &amp;amp; Glynn,
@@ -104,9 +216,14 @@ interval &lt;cite data-cite="Asmussen2007Stochastic"&gt;(&lt;a href="http://dx.d
 &lt;p&gt;$$
 \left( \psi(\hat{F}_R) - z_2^*, \psi(\hat{F}_R) - z_1^* \right).
 $$&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;&lt;a href="http://notebooks.asorge.de"&gt;This work&lt;/a&gt; is licensed under a &lt;a href="http://creativecommons.org/licenses/by/4.0/"&gt;Creative
+Commons Attribution 4.0 International
+License&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;/p&gt;</summary><category term="diss"></category></entry><entry><title>Template notebook</title><link href="http://nb.asorge.de/template-ipynb.html" rel="alternate"></link><updated>2014-08-25T00:00:00+02:00</updated><author><name></name></author><id>tag:nb.asorge.de,2014-08-25:template-ipynb.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;&lt;a href="http://nbviewer.ipython.org/github/andsor/notebooks/blob/master/notebooks/template.ipynb"&gt;View this notebook in nbviewer&lt;/a&gt; | &lt;a href="https://github.com/andsor/notebooks/raw/master/notebooks/template.pdf"&gt;Get
+&lt;/div&gt;&lt;/p&gt;</summary><category term="diss"></category><category term="statistics"></category></entry><entry><title>Template notebook</title><link href="http://nb.asorge.de/template-ipynb.html" rel="alternate"></link><updated>2014-08-25T00:00:00+02:00</updated><author><name></name></author><id>tag:nb.asorge.de,2014-08-25:template-ipynb.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;&lt;a href="http://nbviewer.ipython.org/github/andsor/notebooks/blob/master/notebooks/template.ipynb"&gt;View this notebook in nbviewer&lt;/a&gt; | &lt;a href="https://github.com/andsor/notebooks/raw/master/notebooks/template.pdf"&gt;Get
 PDF&lt;/a&gt; &lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;
@@ -114,9 +231,8 @@ PDF&lt;/a&gt; &lt;/strong&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;&lt;a href="http://notebooks.asorge.de"&gt;This work&lt;/a&gt; is licensed under a &lt;a href="http://creativecommons.org/licenses/by/4.0/"&gt;Creative
-Commons Attribution 4.0 International
-License&lt;/a&gt;.&lt;/p&gt;
+&lt;h1 id="template"&gt;Template&lt;/h1&gt;
+&lt;p&gt;The first heading is moved to the title in PDF export.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -181,6 +297,19 @@ Setting plotting theme to default-light. Palette available in b16_colors
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;&lt;a href="http://notebooks.asorge.de"&gt;This work&lt;/a&gt; is licensed under a &lt;a href="http://creativecommons.org/licenses/by/4.0/"&gt;Creative
+Commons Attribution 4.0 International
+License&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;/div&gt;
 &lt;/div&gt;&lt;/p&gt;</summary><category term=""></category></entry><entry><title>Test post</title><link href="http://nb.asorge.de/test.html" rel="alternate"></link><updated>2014-08-21T09:54:46+02:00</updated><author><name>Andreas Sorge</name></author><id>tag:nb.asorge.de,2014-08-21:test.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;&lt;a href="http://nbviewer.ipython.org/github/andsor/notebooks/blob/master/notebooks/test.ipynb"&gt;View this notebook in nbviewer&lt;/a&gt; | &lt;a href="https://github.com/andsor/notebooks/raw/master/notebooks/test.pdf"&gt;Get
 PDF&lt;/a&gt; &lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;
@@ -197,12 +326,24 @@ PDF&lt;/a&gt; &lt;/strong&gt;&lt;/p&gt;
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
 &lt;div class="prompt input_prompt"&gt;
-In []:
+In [1]:
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="input_area"&gt;
 &lt;div class="highlight-ipynb"&gt;&lt;pre class="ipynb"&gt;&lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"Hello world!"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+&lt;div class="output_area"&gt;&lt;div class="prompt"&gt;&lt;/div&gt;
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;
+Hello world!
+
+&lt;/pre&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -223,7 +364,7 @@ f(x) = \sin(\pi x),
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
 &lt;div class="prompt input_prompt"&gt;
-In []:
+In [2]:
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="input_area"&gt;
@@ -239,7 +380,7 @@ In []:
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
 &lt;div class="prompt input_prompt"&gt;
-In []:
+In [3]:
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="input_area"&gt;
@@ -247,6 +388,159 @@ In []:
 &lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sin&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pi&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
 &lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;show&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+&lt;div class="output_area"&gt;&lt;div class="prompt"&gt;&lt;/div&gt;
+&lt;div class="output_png output_subarea "&gt;
+&lt;img src="data:image/png;base64,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
+SUVORK5CYII=
+"&gt;
+&lt;/img&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
