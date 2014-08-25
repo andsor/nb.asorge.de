@@ -48,3 +48,5 @@ INTERLINKS = {
     'nbviewer': 'http://nbviewer.ipython.org/github/andsor/notebooks/blob/master/notebooks/',
     'pdf':      'https://github.com/andsor/notebooks/raw/master/notebooks/'
 }
+
+CC_LICENSE = "CC-BY"
