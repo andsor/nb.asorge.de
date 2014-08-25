@@ -5,3 +5,4 @@ cache
 content/.ipynb_checkpoints/*
 _nb_header.html
 output/*
+.virtualenv
