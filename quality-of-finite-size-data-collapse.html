@@ -2,7 +2,7 @@
 <html lang="en"
 >
 <head>
-    <title>diss - Notebooks</title>
+    <title>The Quality of Finite-Size Data Collapse - Notebooks</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -166,16 +166,11 @@ init_mathjax = function() {
 init_mathjax();
 </script>
 
+<link rel="canonical" href="http://nb.asorge.de/quality-of-finite-size-data-collapse.html">
 
-    <meta name="author" content="Andreas Sorge" />
-    <meta name="keywords" content="diss" />
+        <meta name="author" content="" />
+        <meta name="keywords" content="diss,data_analysis,statistics" />
 
-    <!-- Open Graph tags -->
-        <meta property="og:site_name" content="Notebooks" />
-        <meta property="og:type" content="website"/>
-        <meta property="og:title" content="Notebooks"/>
-        <meta property="og:url" content="http://nb.asorge.de"/>
-        <meta property="og:description" content="Notebooks"/>
 
 
     <!-- Bootstrap -->
@@ -208,7 +203,7 @@ Notebooks            </a>
                         <li >
                             <a href="http://nb.asorge.de/category/misc.html">Misc</a>
                         </li>
-                        <li >
+                        <li class="active">
                             <a href="http://nb.asorge.de/category/snippets.html">Snippets</a>
                         </li>
             </ul>
@@ -224,27 +219,148 @@ Notebooks            </a>
     <div class="row">
         <div class="col-sm-9">
 
-            <article>
-                <h2><a href="http://nb.asorge.de/quality-of-finite-size-data-collapse.html">The Quality of Finite-Size Data Collapse</a></h2>
-                <div class="summary">
-                    <a class="btn btn-default btn-xs" href="http://nb.asorge.de/quality-of-finite-size-data-collapse.html">more ...</a>
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://nb.asorge.de/quality-of-finite-size-data-collapse.html"
+                       rel="bookmark"
+                       title="Permalink to The Quality of Finite-Size Data Collapse">
+                        The Quality of Finite-Size Data Collapse
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2014-08-31T00:00:00"> So 31 August 2014</time>
+    </span>
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="http://nb.asorge.de/tag/diss.html">diss</a>
+        /
+	<a href="http://nb.asorge.de/tag/data_analysis.html">data_analysis</a>
+        /
+	<a href="http://nb.asorge.de/tag/statistics.html">statistics</a>
+    
+</footer><!-- /.post-info -->                    </div>
                 </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://nb.asorge.de/confidence-intervals-for-binomial-proportions.html">Confidence Intervals for Binomial Proportions</a></h2>
-                <div class="summary">
-                    <a class="btn btn-default btn-xs" href="http://nb.asorge.de/confidence-intervals-for-binomial-proportions.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://nb.asorge.de/sectioning-and-bootstrapping.html">Sectioning & Bootstrapping</a></h2>
-                <div class="summary">
-                    <a class="btn btn-default btn-xs" href="http://nb.asorge.de/sectioning-and-bootstrapping.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
+                <p><strong><a href="http://nbviewer.ipython.org/github/andsor/notebooks/blob/master/notebooks/quality-of-data-collapse.ipynb">View this notebook in nbviewer</a> | <a href="https://github.com/andsor/notebooks/raw/master/notebooks/quality-of-data-collapse.pdf">Get
+PDF</a> </strong></p>
+<p>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="the-quality-of-finite-size-data-collapse">The Quality of Finite-Size Data Collapse</h1>
+<h1 id="finite-size-scaling">Finite-size scaling</h1>
+<p>The finite-size scaling ansatz </p>
+<p>$$
+A_L(\varrho) = L^{\zeta/\nu} \tilde{f}\left(L^{1/\nu} (\varrho - \varrho_c)
+\right)
+$$</p>
+<p>postulates how a physical quantity $A_L(\varrho)$ observed in a system of
+finite size scales with system size $L$ and paramater $\varrho$ according to a
+scaling function $\tilde{f}$, the critical parameter $\varrho_c$, the
+critical exponent $\zeta$ of the quantity itself, and the critical exponent
+$\nu$ of the correlation length $\xi$ 
+<cite data-cite="Newman1999Monte">([Newman &amp; Barkema, 1999])</cite>, 
+<cite data-cite="Binder2010Monte">(<a href="http://dx.doi.org/10.1007/978-3-642-03163-2">Binder &amp; Heermann, 2010</a>)</cite>.</p>
+<p>Finite-size scaling analysis concerns experimental data $a_{L_i, \varrho_j}$ at
+system sizes $L_i$ and parameter values $\varrho_j$.
+Plotting $L_i^{-\zeta/\nu} a_{L_i, \varrho_j}$ against $L_i^{1/nu} (\varrho -
+\varrho_c)$ with the right choice of $\varrho_c, \nu, \zeta$ should let the
+data collapse onto a single curve.
+The single curve of course is the scaling function $\tilde{f}$ from the
+finite-size scaling ansatz.
+In the following, we present a measure by Houdayer &amp; Hartmann 
+<cite data-cite="Houdayer2004Lowtemperature">(<a href="http://dx.doi.org/10.1103/physrevb.70.014418">Houdayer &amp; Hartmann, 2004</a>)</cite>
+for the quality of the data collapse.</p>
+<h1 id="the-quality-function">The quality function</h1>
+<p>Houdayer &amp; Hartmann <cite data-cite="Houdayer2004Lowtemperature">(<a href="http://dx.doi.org/10.1103/physrevb.70.014418">Houdayer &amp;
+Hartmann, 2004</a>)</cite> refine a method proposed by Kawashima &amp; Ito 
+<cite data-cite="Kawashima1993Critical">(<a href="http://dx.doi.org/10.1143/jpsj.62.435">Kawashima &amp; Ito, 1993</a>)</cite>.
+They define the quality as the reduced $\chi^2$ statistic</p>
+<p>\begin{equation}
+S = \frac{1}{\mathcal{N}} \sum_{i,j} \frac{(y_{ij} -
+Y_{ij})^2}{dy_{ij}^2+dY_{ij}^2},
+\end{equation}</p>
+<p>where the values $y_{ij}, dy_{ij}$ are the scaled observations and its standard
+errors at $x_{ij}$, and the values $Y_{ij}, dY_{ij}$ are the estimated value of
+the master curve and its standard error at $x_{ij}$.</p>
+<p>The quality $S$ is the mean square of the weighted deviations from the master
+curve.
+As we expect the individual deviations $y_{ij} - Y_{ij}$ to be of the order of
+the individual error $\sqrt{dy_{ij}^2 + dY_{ij}^2}$ for an optimal fit, the
+quality $S$ should attain its minimum $S_{\min}$ at around $1$ and be much
+larger otherwise <cite data-cite="Bevington2003Data">([Bevington &amp; Robinson,
+2003])</cite>.</p>
+<p>Let $i$ enumerate the system sizes $L_i$, $i = 1, \ldots, k$ and let $j$
+enumerate the parameters $\varrho_j$, $j = 1, \ldots, n$ with $\varrho_1 &lt;
+\varrho_2 &lt; \ldots &lt; \varrho_n$.
+The scaled data are</p>
+<p>\begin{align}
+y_{ij} &amp; := L_i^{-\zeta/\nu} a_{L_i, \varrho_j} \\
+dy_{ij} &amp; := L_i^{-\zeta/\nu} da_{L_i, \varrho_j} \\
+x_{ij}  &amp; := L_i^{1/\nu}(\varrho - \varrho_c).
+\end{align}</p>
+<p>The sum in the quality function $S$ only involves terms for which the estimated
+value $Y_{ij}$ of the master curve at $x_{ij}$ is defined. The number of such
+terms is $\mathcal{N}$.</p>
+<p>The master curve itself depends on the scaled data. For a given $i$, $L_i$, we
+estimate the master curve at $x_{ij}$ by the two respective data from all the
+other system sizes which respectively enclose $x_{ij}$:
+for each $i \neq i$, let $j'$ be such that $x_{i'j'} \leq x_{ij} \leq
+x_{i'(j'+1)}$, and select the points $(x_{i'j'}, y_{i'j'}, dy_{i'j'}),
+(x_{i'(j'+1)}, y_{i'(j'+1)}, dy_{i'(j'+1)})$.
+Do not select points for some $i'$, if there is no such $j'$. If there is no
+such $j'$ for all $i'$, the master curve remains undefined at $x_{ij}$.</p>
+<p>Given the selected points $(x_l, y_l, dy_l)$, the local approximation of the
+master curve is the linear fit</p>
+<p>$$
+y = mx + b
+$$</p>
+<p>with weighted least squares <cite data-cite="Strutz2011Data">(Strutz,
+2011)</cite>.
+The weights $w_l$ are the reciprocal variances, $w_l := 1/dy_{ij}^2$.
+The estimates and (co)variances of the slope $m$ and intercept $b$ are</p>
+<p>\begin{align*}
+\hat{b} &amp;= \frac{1}{\Delta} (K_{xx}K_y - K_xK_{xy}) \\
+\hat{m} &amp;= \frac{1}{\Delta} (K K_{xy} - K_x K_y)
+\end{align*}</p>
+<p>$$
+\hat{\sigma}_b^2 = \frac{K_{xx}}{\Delta} , \hat{\sigma}_m^2 = \frac{K}{\Delta},
+\hat{\sigma}_{bm} = - \frac{K_x}{\Delta}
+$$</p>
+<p>with $K_{nm} := \sum w_l x_l^n y_l^m$, $K := K_{00}$, $K_x := K_{10}$, $K_y :=
+K_{01}$, $K_{xx} := K_{20}$, $K_{xy} := K_{11}$, $\Delta := KK_{xx} - K_x^2$.</p>
+<p>Hence, the estimated value of the master curve at $x_{ij}$ is</p>
+<p>$$
+Y_{ij} = \hat{m} x_{ij} + \hat{b}
+$$</p>
+<p>with error propagation</p>
+<p>$$
+dY_{ij}^2 = \hat{\sigma}^2 x_{ij}^2 + 2 \hat{\sigma}_{bm} x_{ij} +
+\hat{\sigma}_b^2.
+$$</p>
+<blockquote>
+<p><em><a href="http://notebooks.asorge.de">This work</a> is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/">Creative
+Commons Attribution 4.0 International
+License</a>.</em></p>
+</blockquote>
+</div>
+</div>
+</div></p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
 
         </div>
         <div class="col-sm-3 well well-sm" id="sidebar">
