@@ -1,111 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Notebooks</title><link href="http://nb.asorge.de/" rel="alternate"></link><link href="http://nb.asorge.de/feeds/diss.atom.xml" rel="self"></link><id>http://nb.asorge.de/</id><updated>2014-08-31T00:00:00+02:00</updated><entry><title>The Quality of Finite-Size Data Collapse</title><link href="http://nb.asorge.de/quality-of-finite-size-data-collapse.html" rel="alternate"></link><updated>2014-08-31T00:00:00+02:00</updated><author><name></name></author><id>tag:nb.asorge.de,2014-08-31:quality-of-finite-size-data-collapse.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;&lt;a href="http://nbviewer.ipython.org/github/andsor/notebooks/blob/master/notebooks/quality-of-data-collapse.ipynb"&gt;View this notebook in nbviewer&lt;/a&gt; | &lt;a href="https://github.com/andsor/notebooks/raw/master/notebooks/quality-of-data-collapse.pdf"&gt;Get
-PDF&lt;/a&gt; &lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;
-&lt;div class="cell border-box-sizing text_cell rendered"&gt;
-&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h1 id="the-quality-of-finite-size-data-collapse"&gt;The Quality of Finite-Size Data Collapse&lt;/h1&gt;
-&lt;h1 id="finite-size-scaling"&gt;Finite-size scaling&lt;/h1&gt;
-&lt;p&gt;The finite-size scaling ansatz &lt;/p&gt;
-&lt;p&gt;$$
-A_L(\varrho) = L^{\zeta/\nu} \tilde{f}\left(L^{1/\nu} (\varrho - \varrho_c)
-\right)
-$$&lt;/p&gt;
-&lt;p&gt;postulates how a physical quantity $A_L(\varrho)$ observed in a system of
-finite size scales with system size $L$ and paramater $\varrho$ according to a
-scaling function $\tilde{f}$, the critical parameter $\varrho_c$, the
-critical exponent $\zeta$ of the quantity itself, and the critical exponent
-$\nu$ of the correlation length $\xi$ 
-&lt;cite data-cite="Newman1999Monte"&gt;([Newman &amp;amp; Barkema, 1999])&lt;/cite&gt;, 
-&lt;cite data-cite="Binder2010Monte"&gt;(&lt;a href="http://dx.doi.org/10.1007/978-3-642-03163-2"&gt;Binder &amp;amp; Heermann, 2010&lt;/a&gt;)&lt;/cite&gt;.&lt;/p&gt;
-&lt;p&gt;Finite-size scaling analysis concerns experimental data $a_{L_i, \varrho_j}$ at
-system sizes $L_i$ and parameter values $\varrho_j$.
-Plotting $L_i^{-\zeta/\nu} a_{L_i, \varrho_j}$ against $L_i^{1/nu} (\varrho -
-\varrho_c)$ with the right choice of $\varrho_c, \nu, \zeta$ should let the
-data collapse onto a single curve.
-The single curve of course is the scaling function $\tilde{f}$ from the
-finite-size scaling ansatz.
-In the following, we present a measure by Houdayer &amp;amp; Hartmann 
-&lt;cite data-cite="Houdayer2004Lowtemperature"&gt;(&lt;a href="http://dx.doi.org/10.1103/physrevb.70.014418"&gt;Houdayer &amp;amp; Hartmann, 2004&lt;/a&gt;)&lt;/cite&gt;
-for the quality of the data collapse.&lt;/p&gt;
-&lt;h1 id="the-quality-function"&gt;The quality function&lt;/h1&gt;
-&lt;p&gt;Houdayer &amp;amp; Hartmann &lt;cite data-cite="Houdayer2004Lowtemperature"&gt;(&lt;a href="http://dx.doi.org/10.1103/physrevb.70.014418"&gt;Houdayer &amp;amp;
-Hartmann, 2004&lt;/a&gt;)&lt;/cite&gt; refine a method proposed by Kawashima &amp;amp; Ito 
-&lt;cite data-cite="Kawashima1993Critical"&gt;(&lt;a href="http://dx.doi.org/10.1143/jpsj.62.435"&gt;Kawashima &amp;amp; Ito, 1993&lt;/a&gt;)&lt;/cite&gt;.
-They define the quality as the reduced $\chi^2$ statistic&lt;/p&gt;
-&lt;p&gt;\begin{equation}
-S = \frac{1}{\mathcal{N}} \sum_{i,j} \frac{(y_{ij} -
-Y_{ij})^2}{dy_{ij}^2+dY_{ij}^2},
-\end{equation}&lt;/p&gt;
-&lt;p&gt;where the values $y_{ij}, dy_{ij}$ are the scaled observations and its standard
-errors at $x_{ij}$, and the values $Y_{ij}, dY_{ij}$ are the estimated value of
-the master curve and its standard error at $x_{ij}$.&lt;/p&gt;
-&lt;p&gt;The quality $S$ is the mean square of the weighted deviations from the master
-curve.
-As we expect the individual deviations $y_{ij} - Y_{ij}$ to be of the order of
-the individual error $\sqrt{dy_{ij}^2 + dY_{ij}^2}$ for an optimal fit, the
-quality $S$ should attain its minimum $S_{\min}$ at around $1$ and be much
-larger otherwise &lt;cite data-cite="Bevington2003Data"&gt;([Bevington &amp;amp; Robinson,
-2003])&lt;/cite&gt;.&lt;/p&gt;
-&lt;p&gt;Let $i$ enumerate the system sizes $L_i$, $i = 1, \ldots, k$ and let $j$
-enumerate the parameters $\varrho_j$, $j = 1, \ldots, n$ with $\varrho_1 &amp;lt;
-\varrho_2 &amp;lt; \ldots &amp;lt; \varrho_n$.
-The scaled data are&lt;/p&gt;
-&lt;p&gt;\begin{align}
-y_{ij} &amp;amp; := L_i^{-\zeta/\nu} a_{L_i, \varrho_j} \\
-dy_{ij} &amp;amp; := L_i^{-\zeta/\nu} da_{L_i, \varrho_j} \\
-x_{ij}  &amp;amp; := L_i^{1/\nu}(\varrho - \varrho_c).
-\end{align}&lt;/p&gt;
-&lt;p&gt;The sum in the quality function $S$ only involves terms for which the estimated
-value $Y_{ij}$ of the master curve at $x_{ij}$ is defined. The number of such
-terms is $\mathcal{N}$.&lt;/p&gt;
-&lt;p&gt;The master curve itself depends on the scaled data. For a given $i$, $L_i$, we
-estimate the master curve at $x_{ij}$ by the two respective data from all the
-other system sizes which respectively enclose $x_{ij}$:
-for each $i \neq i$, let $j'$ be such that $x_{i'j'} \leq x_{ij} \leq
-x_{i'(j'+1)}$, and select the points $(x_{i'j'}, y_{i'j'}, dy_{i'j'}),
-(x_{i'(j'+1)}, y_{i'(j'+1)}, dy_{i'(j'+1)})$.
-Do not select points for some $i'$, if there is no such $j'$. If there is no
-such $j'$ for all $i'$, the master curve remains undefined at $x_{ij}$.&lt;/p&gt;
-&lt;p&gt;Given the selected points $(x_l, y_l, dy_l)$, the local approximation of the
-master curve is the linear fit&lt;/p&gt;
-&lt;p&gt;$$
-y = mx + b
-$$&lt;/p&gt;
-&lt;p&gt;with weighted least squares &lt;cite data-cite="Strutz2011Data"&gt;(Strutz,
-2011)&lt;/cite&gt;.
-The weights $w_l$ are the reciprocal variances, $w_l := 1/dy_{ij}^2$.
-The estimates and (co)variances of the slope $m$ and intercept $b$ are&lt;/p&gt;
-&lt;p&gt;\begin{align*}
-\hat{b} &amp;amp;= \frac{1}{\Delta} (K_{xx}K_y - K_xK_{xy}) \\
-\hat{m} &amp;amp;= \frac{1}{\Delta} (K K_{xy} - K_x K_y)
-\end{align*}&lt;/p&gt;
-&lt;p&gt;$$
-\hat{\sigma}_b^2 = \frac{K_{xx}}{\Delta} , \hat{\sigma}_m^2 = \frac{K}{\Delta},
-\hat{\sigma}_{bm} = - \frac{K_x}{\Delta}
-$$&lt;/p&gt;
-&lt;p&gt;with $K_{nm} := \sum w_l x_l^n y_l^m$, $K := K_{00}$, $K_x := K_{10}$, $K_y :=
-K_{01}$, $K_{xx} := K_{20}$, $K_{xy} := K_{11}$, $\Delta := KK_{xx} - K_x^2$.&lt;/p&gt;
-&lt;p&gt;Hence, the estimated value of the master curve at $x_{ij}$ is&lt;/p&gt;
-&lt;p&gt;$$
-Y_{ij} = \hat{m} x_{ij} + \hat{b}
-$$&lt;/p&gt;
-&lt;p&gt;with error propagation&lt;/p&gt;
-&lt;p&gt;$$
-dY_{ij}^2 = \hat{\sigma}^2 x_{ij}^2 + 2 \hat{\sigma}_{bm} x_{ij} +
-\hat{\sigma}_b^2.
-$$&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;em&gt;&lt;a href="http://notebooks.asorge.de"&gt;This work&lt;/a&gt; is licensed under a &lt;a href="http://creativecommons.org/licenses/by/4.0/"&gt;Creative
-Commons Attribution 4.0 International
-License&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;/p&gt;</summary><category term="diss"></category><category term="data_analysis"></category><category term="statistics"></category></entry><entry><title>Confidence Intervals for Binomial Proportions</title><link href="http://nb.asorge.de/confidence-intervals-for-binomial-proportions.html" rel="alternate"></link><updated>2014-08-25T00:00:00+02:00</updated><author><name></name></author><id>tag:nb.asorge.de,2014-08-25:confidence-intervals-for-binomial-proportions.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;&lt;a href="http://nbviewer.ipython.org/github/andsor/notebooks/blob/master/notebooks/confidence-intervals-for-binomial-proportions.ipynb"&gt;View this notebook in
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Notebooks</title><link href="http://nb.asorge.de/" rel="alternate"></link><link href="http://nb.asorge.de/feeds/diss.atom.xml" rel="self"></link><id>http://nb.asorge.de/</id><updated>2014-09-02T00:00:00+02:00</updated><entry><title>Confidence Intervals for Binomial Proportions</title><link href="http://nb.asorge.de/confidence-intervals-for-binomial-proportions.html" rel="alternate"></link><updated>2014-09-02T00:00:00+02:00</updated><author><name></name></author><id>tag:nb.asorge.de,2014-09-02:confidence-intervals-for-binomial-proportions.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;&lt;a href="http://nbviewer.ipython.org/github/andsor/notebooks/blob/master/notebooks/confidence-intervals-for-binomial-proportions.ipynb"&gt;View this notebook in
 nbviewer&lt;/a&gt; | &lt;a href="https://github.com/andsor/notebooks/raw/master/notebooks/confidence-intervals-for-binomial-proportions.pdf"&gt;Get
 PDF&lt;/a&gt; &lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;
@@ -220,7 +114,117 @@ License&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;/p&gt;</summary><category term="statistics"></category><category term="diss"></category></entry><entry><title>Sectioning &amp; Bootstrapping</title><link href="http://nb.asorge.de/sectioning-and-bootstrapping.html" rel="alternate"></link><updated>2014-08-25T00:00:00+02:00</updated><author><name></name></author><id>tag:nb.asorge.de,2014-08-25:sectioning-and-bootstrapping.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;&lt;a href="http://nbviewer.ipython.org/github/andsor/notebooks/blob/master/notebooks/sectioning-and-bootstrapping.ipynb"&gt;View this notebook in
+&lt;/div&gt;&lt;/p&gt;</summary><category term="statistics"></category><category term="diss"></category></entry><entry><title>The Quality of Finite-Size Data Collapse</title><link href="http://nb.asorge.de/quality-of-finite-size-data-collapse.html" rel="alternate"></link><updated>2014-09-02T00:00:00+02:00</updated><author><name></name></author><id>tag:nb.asorge.de,2014-09-02:quality-of-finite-size-data-collapse.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;&lt;a href="http://nbviewer.ipython.org/github/andsor/notebooks/blob/master/notebooks/quality-of-data-collapse.ipynb"&gt;View this notebook in nbviewer&lt;/a&gt; | &lt;a href="https://github.com/andsor/notebooks/raw/master/notebooks/quality-of-data-collapse.pdf"&gt;Get
+PDF&lt;/a&gt; &lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h1 id="the-quality-of-finite-size-data-collapse"&gt;The Quality of Finite-Size Data Collapse&lt;/h1&gt;
+&lt;h1 id="finite-size-scaling"&gt;Finite-size scaling&lt;/h1&gt;
+&lt;p&gt;The finite-size scaling ansatz &lt;/p&gt;
+&lt;p&gt;$$
+A_L(\varrho) = L^{\zeta/\nu} \tilde{f}\left(L^{1/\nu} (\varrho - \varrho_c)
+\right)
+$$&lt;/p&gt;
+&lt;p&gt;postulates how a physical quantity $A_L(\varrho)$ observed in a system of
+finite size scales with system size $L$ and paramater $\varrho$ according to a
+scaling function $\tilde{f}$, the critical parameter $\varrho_c$, the
+critical exponent $\zeta$ of the quantity itself, and the critical exponent
+$\nu$ of the correlation length $\xi$ 
+&lt;cite data-cite="Newman1999Monte"&gt;([Newman &amp;amp; Barkema, 1999])&lt;/cite&gt;, 
+&lt;cite data-cite="Binder2010Monte"&gt;(&lt;a href="http://dx.doi.org/10.1007/978-3-642-03163-2"&gt;Binder &amp;amp; Heermann, 2010&lt;/a&gt;)&lt;/cite&gt;.&lt;/p&gt;
+&lt;p&gt;Finite-size scaling analysis concerns experimental data $a_{L_i, \varrho_j}$ at
+system sizes $L_i$ and parameter values $\varrho_j$.
+Plotting $L_i^{-\zeta/\nu} a_{L_i, \varrho_j}$ against $L_i^{1/nu} (\varrho -
+\varrho_c)$ with the right choice of $\varrho_c, \nu, \zeta$ should let the
+data collapse onto a single curve.
+The single curve of course is the scaling function $\tilde{f}$ from the
+finite-size scaling ansatz.
+In the following, we present a measure by Houdayer &amp;amp; Hartmann 
+&lt;cite data-cite="Houdayer2004Lowtemperature"&gt;(&lt;a href="http://dx.doi.org/10.1103/physrevb.70.014418"&gt;Houdayer &amp;amp; Hartmann, 2004&lt;/a&gt;)&lt;/cite&gt;
+for the quality of the data collapse.
+Melchert &lt;cite data-cite="Melchert2009AutoScalepy"&gt;(&lt;a href="http://arxiv.org/abs/0910.5403"&gt;Melchert, 2009&lt;/a&gt;)&lt;/cite&gt;
+refers to some alternative measures, for example &lt;cite data-cite="Bhattacharjee2001Measure"&gt;(&lt;a href="http://dx.doi.org/10.1088/0305-4470/34/33/302"&gt;Bhattacharjee &amp;amp; Seno, 2001&lt;/a&gt;)&lt;/cite&gt;,
+&lt;cite data-cite="Wenzel2008Percolation"&gt;(&lt;a href="http://dx.doi.org/10.1016/j.nuclphysb.2007.10.024"&gt;Wenzel et al., 2008&lt;/a&gt;)&lt;/cite&gt;, and
+to some applications of these measures in the literature.&lt;/p&gt;
+&lt;h1 id="the-quality-function"&gt;The quality function&lt;/h1&gt;
+&lt;p&gt;Houdayer &amp;amp; Hartmann &lt;cite data-cite="Houdayer2004Lowtemperature"&gt;(&lt;a href="http://dx.doi.org/10.1103/physrevb.70.014418"&gt;Houdayer &amp;amp;
+Hartmann, 2004&lt;/a&gt;)&lt;/cite&gt; refine a method proposed by Kawashima &amp;amp; Ito 
+&lt;cite data-cite="Kawashima1993Critical"&gt;(&lt;a href="http://dx.doi.org/10.1143/jpsj.62.435"&gt;Kawashima &amp;amp; Ito, 1993&lt;/a&gt;)&lt;/cite&gt;.
+They define the quality as the reduced $\chi^2$ statistic&lt;/p&gt;
+&lt;p&gt;\begin{equation}
+S = \frac{1}{\mathcal{N}} \sum_{i,j} \frac{(y_{ij} -
+Y_{ij})^2}{dy_{ij}^2+dY_{ij}^2},
+\end{equation}&lt;/p&gt;
+&lt;p&gt;where the values $y_{ij}, dy_{ij}$ are the scaled observations and its standard
+errors at $x_{ij}$, and the values $Y_{ij}, dY_{ij}$ are the estimated value of
+the master curve and its standard error at $x_{ij}$.&lt;/p&gt;
+&lt;p&gt;The quality $S$ is the mean square of the weighted deviations from the master
+curve.
+As we expect the individual deviations $y_{ij} - Y_{ij}$ to be of the order of
+the individual error $\sqrt{dy_{ij}^2 + dY_{ij}^2}$ for an optimal fit, the
+quality $S$ should attain its minimum $S_{\min}$ at around $1$ and be much
+larger otherwise &lt;cite data-cite="Bevington2003Data"&gt;([Bevington &amp;amp; Robinson,
+2003])&lt;/cite&gt;.&lt;/p&gt;
+&lt;p&gt;Let $i$ enumerate the system sizes $L_i$, $i = 1, \ldots, k$ and let $j$
+enumerate the parameters $\varrho_j$, $j = 1, \ldots, n$ with $\varrho_1 &amp;lt;
+\varrho_2 &amp;lt; \ldots &amp;lt; \varrho_n$.
+The scaled data are&lt;/p&gt;
+&lt;p&gt;\begin{align}
+y_{ij} &amp;amp; := L_i^{-\zeta/\nu} a_{L_i, \varrho_j} \\
+dy_{ij} &amp;amp; := L_i^{-\zeta/\nu} da_{L_i, \varrho_j} \\
+x_{ij}  &amp;amp; := L_i^{1/\nu}(\varrho_j - \varrho_c).
+\end{align}&lt;/p&gt;
+&lt;p&gt;The sum in the quality function $S$ only involves terms for which the estimated
+value $Y_{ij}$ of the master curve at $x_{ij}$ is defined. The number of such
+terms is $\mathcal{N}$.&lt;/p&gt;
+&lt;p&gt;The master curve itself depends on the scaled data. For a given $i$, $L_i$, we
+estimate the master curve at $x_{ij}$ by the two respective data from all the
+other system sizes which respectively enclose $x_{ij}$:
+for each $i \neq i$, let $j'$ be such that $x_{i'j'} \leq x_{ij} \leq
+x_{i'(j'+1)}$, and select the points $(x_{i'j'}, y_{i'j'}, dy_{i'j'}),
+(x_{i'(j'+1)}, y_{i'(j'+1)}, dy_{i'(j'+1)})$.
+Do not select points for some $i'$, if there is no such $j'$. If there is no
+such $j'$ for all $i'$, the master curve remains undefined at $x_{ij}$.&lt;/p&gt;
+&lt;p&gt;Given the selected points $(x_l, y_l, dy_l)$, the local approximation of the
+master curve is the linear fit&lt;/p&gt;
+&lt;p&gt;$$
+y = mx + b
+$$&lt;/p&gt;
+&lt;p&gt;with weighted least squares &lt;cite data-cite="Strutz2011Data"&gt;(Strutz,
+2011)&lt;/cite&gt;.
+The weights $w_l$ are the reciprocal variances, $w_l := 1/dy_{ij}^2$.
+The estimates and (co)variances of the slope $m$ and intercept $b$ are&lt;/p&gt;
+&lt;p&gt;\begin{align*}
+\hat{b} &amp;amp;= \frac{1}{\Delta} (K_{xx}K_y - K_xK_{xy}) \\
+\hat{m} &amp;amp;= \frac{1}{\Delta} (K K_{xy} - K_x K_y)
+\end{align*}&lt;/p&gt;
+&lt;p&gt;$$
+\hat{\sigma}_b^2 = \frac{K_{xx}}{\Delta} , \hat{\sigma}_m^2 = \frac{K}{\Delta},
+\hat{\sigma}_{bm} = - \frac{K_x}{\Delta}
+$$&lt;/p&gt;
+&lt;p&gt;with $K_{nm} := \sum w_l x_l^n y_l^m$, $K := K_{00}$, $K_x := K_{10}$, $K_y :=
+K_{01}$, $K_{xx} := K_{20}$, $K_{xy} := K_{11}$, $\Delta := KK_{xx} - K_x^2$.&lt;/p&gt;
+&lt;p&gt;Hence, the estimated value of the master curve at $x_{ij}$ is&lt;/p&gt;
+&lt;p&gt;$$
+Y_{ij} = \hat{m} x_{ij} + \hat{b}
+$$&lt;/p&gt;
+&lt;p&gt;with error propagation&lt;/p&gt;
+&lt;p&gt;$$
+dY_{ij}^2 = \hat{\sigma}^2 x_{ij}^2 + 2 \hat{\sigma}_{bm} x_{ij} +
+\hat{\sigma}_b^2.
+$$&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;&lt;a href="http://notebooks.asorge.de"&gt;This work&lt;/a&gt; is licensed under a &lt;a href="http://creativecommons.org/licenses/by/4.0/"&gt;Creative
+Commons Attribution 4.0 International
+License&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/p&gt;</summary><category term="diss"></category><category term="data_analysis"></category><category term="statistics"></category></entry><entry><title>Sectioning &amp; Bootstrapping</title><link href="http://nb.asorge.de/sectioning-and-bootstrapping.html" rel="alternate"></link><updated>2014-09-02T00:00:00+02:00</updated><author><name></name></author><id>tag:nb.asorge.de,2014-09-02:sectioning-and-bootstrapping.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;&lt;a href="http://nbviewer.ipython.org/github/andsor/notebooks/blob/master/notebooks/sectioning-and-bootstrapping.ipynb"&gt;View this notebook in
 nbviewer&lt;/a&gt; | &lt;a href="https://github.com/andsor/notebooks/raw/master/notebooks/sectioning-and-bootstrapping.pdf"&gt;Get
 PDF&lt;/a&gt; &lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;
