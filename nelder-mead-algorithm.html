@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en"
+>
+<head>
+    <title>The Nelder--Mead Algorithm - Notebooks</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+<style type="text/css">
+
+/*some stuff for output/input prompts*/
+div.cell{border:1px solid transparent;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}div.cell.selected{border-radius:4px;border:thin #ababab solid}
+div.cell.edit_mode{border-radius:4px;border:thin #008000 solid}
+div.cell{width:100%;padding:5px 5px 5px 0;margin:0;outline:none}
+div.prompt{min-width:11ex;padding:.4em;margin:0;font-family:monospace;text-align:right;line-height:1.21429em}
+@media (max-width:480px){div.prompt{text-align:left}}div.inner_cell{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
+div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;line-height:1.21429em}
+div.prompt:empty{padding-top:0;padding-bottom:0}
+div.input{page-break-inside:avoid;display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;}
+div.inner_cell{width:90%;}
+div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;}
+div.input_prompt{color:navy;border-top:1px solid transparent;}
+div.output_wrapper{margin-top:5px;position:relative;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+div.output_scroll{height:24em;width:100%;overflow:auto;border-radius:4px;-webkit-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);-moz-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);}
+div.output_collapsed{margin:0px;padding:0px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+div.out_prompt_overlay{height:100%;padding:0px 0.4em;position:absolute;border-radius:4px;}
+div.out_prompt_overlay:hover{-webkit-box-shadow:inset 0 0 1px #000000;-moz-box-shadow:inset 0 0 1px #000000;box-shadow:inset 0 0 1px #000000;background:rgba(240, 240, 240, 0.5);}
+div.output_prompt{color:darkred;}
+
+a.anchor-link:link{text-decoration:none;padding:0px 20px;visibility:hidden;}
+h1:hover .anchor-link,h2:hover .anchor-link,h3:hover .anchor-link,h4:hover .anchor-link,h5:hover .anchor-link,h6:hover .anchor-link{visibility:visible;}
+/* end stuff for output/input prompts*/
+
+
+.highlight-ipynb .hll { background-color: #ffffcc }
+.highlight-ipynb  { background: #f8f8f8; }
+.highlight-ipynb .c { color: #408080; font-style: italic } /* Comment */
+.highlight-ipynb .err { border: 1px solid #FF0000 } /* Error */
+.highlight-ipynb .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight-ipynb .o { color: #666666 } /* Operator */
+.highlight-ipynb .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.highlight-ipynb .cp { color: #BC7A00 } /* Comment.Preproc */
+.highlight-ipynb .c1 { color: #408080; font-style: italic } /* Comment.Single */
+.highlight-ipynb .cs { color: #408080; font-style: italic } /* Comment.Special */
+.highlight-ipynb .gd { color: #A00000 } /* Generic.Deleted */
+.highlight-ipynb .ge { font-style: italic } /* Generic.Emph */
+.highlight-ipynb .gr { color: #FF0000 } /* Generic.Error */
+.highlight-ipynb .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight-ipynb .gi { color: #00A000 } /* Generic.Inserted */
+.highlight-ipynb .go { color: #888888 } /* Generic.Output */
+.highlight-ipynb .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight-ipynb .gs { font-weight: bold } /* Generic.Strong */
+.highlight-ipynb .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight-ipynb .gt { color: #0044DD } /* Generic.Traceback */
+.highlight-ipynb .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight-ipynb .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight-ipynb .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight-ipynb .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight-ipynb .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight-ipynb .kt { color: #B00040 } /* Keyword.Type */
+.highlight-ipynb .m { color: #666666 } /* Literal.Number */
+.highlight-ipynb .s { color: #BA2121 } /* Literal.String */
+.highlight-ipynb .na { color: #7D9029 } /* Name.Attribute */
+.highlight-ipynb .nb { color: #008000 } /* Name.Builtin */
+.highlight-ipynb .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight-ipynb .no { color: #880000 } /* Name.Constant */
+.highlight-ipynb .nd { color: #AA22FF } /* Name.Decorator */
+.highlight-ipynb .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight-ipynb .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight-ipynb .nf { color: #0000FF } /* Name.Function */
+.highlight-ipynb .nl { color: #A0A000 } /* Name.Label */
+.highlight-ipynb .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight-ipynb .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight-ipynb .nv { color: #19177C } /* Name.Variable */
+.highlight-ipynb .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight-ipynb .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight-ipynb .mf { color: #666666 } /* Literal.Number.Float */
+.highlight-ipynb .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight-ipynb .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight-ipynb .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight-ipynb .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight-ipynb .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight-ipynb .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight-ipynb .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight-ipynb .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight-ipynb .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight-ipynb .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight-ipynb .sx { color: #008000 } /* Literal.String.Other */
+.highlight-ipynb .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight-ipynb .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight-ipynb .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight-ipynb .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight-ipynb .vc { color: #19177C } /* Name.Variable.Class */
+.highlight-ipynb .vg { color: #19177C } /* Name.Variable.Global */
+.highlight-ipynb .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight-ipynb .il { color: #666666 } /* Literal.Number.Integer.Long */
+</style>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+div.entry-content {
+  overflow: visible;
+  padding: 8px;
+}
+.input_area {
+  padding: 0.2em;
+}
+
+a.heading-anchor {
+ white-space: normal;
+}
+
+.rendered_html
+code {
+ font-size: .8em;
+}
+
+pre.ipynb {
+  color: black;
+  background: #f7f7f7;
+  border: none;
+  box-shadow: none;
+  margin-bottom: 0;
+  padding: 0;
+  margin: 0px;
+  font-size: 13px;
+}
+
+/* remove the prompt div from text cells */
+div.text_cell .prompt {
+    display: none;
+}
+
+/* remove horizontal padding from text cells, */
+/* so it aligns with outer body text */
+div.text_cell_render {
+    padding: 0.5em 0em;
+}
+
+img.anim_icon{padding:0; border:0; vertical-align:middle; -webkit-box-shadow:none; -box-shadow:none}
+</style>
+
+<script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+<script type="text/javascript">
+init_mathjax = function() {
+    if (window.MathJax) {
+        // MathJax loaded
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+            },
+            displayAlign: 'left', // Change this to 'center' to center equations.
+            "HTML-CSS": {
+                styles: {'.MathJax_Display': {"margin": 0}}
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    }
+}
+init_mathjax();
+</script>
+
+<link rel="canonical" href="http://nb.asorge.de/nelder-mead-algorithm.html">
+
+        <meta name="author" content="" />
+        <meta name="keywords" content="diss,optimization,data_analysis" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="http://nb.asorge.de/theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="http://nb.asorge.de/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="http://nb.asorge.de/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://nb.asorge.de/theme/css/style.css" type="text/css"/>
+
+        <link href="http://nb.asorge.de/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Notebooks ATOM Feed"/>
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://nb.asorge.de/" class="navbar-brand">
+Notebooks            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li >
+                            <a href="http://nb.asorge.de/category/misc.html">Misc</a>
+                        </li>
+                        <li class="active">
+                            <a href="http://nb.asorge.de/category/snippets.html">Snippets</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="http://nb.asorge.de/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://nb.asorge.de/nelder-mead-algorithm.html"
+                       rel="bookmark"
+                       title="Permalink to The Nelder--Mead Algorithm">
+                        The Nelder--Mead Algorithm
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2014-09-03T00:00:00"> Mi 03 September 2014</time>
+    </span>
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="http://nb.asorge.de/tag/diss.html">diss</a>
+        /
+	<a href="http://nb.asorge.de/tag/optimization.html">optimization</a>
+        /
+	<a href="http://nb.asorge.de/tag/data_analysis.html">data_analysis</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p><strong><a href="http://nbviewer.ipython.org/github/andsor/notebooks/blob/master/notebooks/nelder-mead.ipynb">View this notebook in nbviewer</a> | <a href="https://github.com/andsor/notebooks/raw/master/notebooks/nelder-mead.pdf">Get
+PDF</a> </strong></p>
+<p>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="the-nelder-mead-algorithm">The Nelder--Mead algorithm</h1>
+<p>The Nelder--Mead algorithm 
+<cite data-cite="Nelder1965Simplex">(<a href="http://dx.doi.org/10.1093/comjnl/7.4.308">Nelder &amp; Mead, 1965</a>)</cite>
+attempts to minimize a goal function $f : \mathbb{R}^n \to \mathbb{R}$ of an
+unconstrained optimization problem.
+As it only evaluates function values, but no derivatives, the Nelder--Mead
+algorithm is a <em>direct search method</em>
+<cite data-cite="Kolda2003Optimization">(<a href="http://dx.doi.org/10.1137/s003614450242889">Kolda et al., 2003</a>)</cite>.
+Although the method generally lacks rigorous convergence properties 
+<cite data-cite="Lagarias1998Convergence">(<a href="http://dx.doi.org/10.1137/s1052623496303470">Lagarias et al., 1998</a>)</cite>
+<cite data-cite="Price2002Convergent">(<a href="http://dx.doi.org/10.1023/a%3a1014849028575">Price et al., 2002</a>)</cite>, in
+practice the first few iterations often yield satisfactory results <cite data-cite="Singer2009NelderMead">(<a href="http://dx.doi.org/10.4249/scholarpedia.2928">Singer &amp; Mead, 2009</a>)</cite>.
+Typically, each iteration evaluates the goal function only once or twice 
+<cite data-cite="Singer2004Efficient">(<a href="http://dx.doi.org/10.1002/anac.200410015">Singer &amp; Singer, 2004</a>)</cite>,
+which is why the Nelder--Mead algorithm is comparatively fast if goal function
+evaluation is the computational bottleneck 
+<cite data-cite="Singer2009NelderMead">(<a href="http://dx.doi.org/10.4249/scholarpedia.2928">Singer &amp; Mead, 2009</a>)</cite>.</p>
+<h1 id="the-algorithm">The algorithm</h1>
+<p>Nelder &amp; Mead <cite data-cite="Nelder1965Simplex">(<a href="http://dx.doi.org/10.1093/comjnl/7.4.308">Nelder &amp; Mead,
+1965</a>)</cite> refined a simplex method by Spendley et al. 
+<cite data-cite="Spendley1962Sequential">(<a href="http://dx.doi.org/10.1080/00401706.1962.10490033">Spendley et al., 1962</a>)</cite>.
+A simplex is the generalization of triangles in $\mathbb{R}^2$ to $n$
+dimensions: in $\mathbb{R}^n$, a simplex is the convex hull of $n+1$ vertices
+$x_0, \ldots, x_n \in \mathbb{R}^n$.
+Starting with an initial simplex, the algorithm attempts to decrease the
+function values $f_i := f(x_i)$ at the vertices by a sequence of elementary
+transformations of the simplex along the local landscape.
+The algorithm <em>succeeds</em> when the simplex is sufficiently small (<em>domain
+convergence test</em>), and/or when the function values $f_i$ are sufficiently close
+(<em>function-value convergence test</em>).
+The algorithm <em>fails</em> when it did not succeed after a given number of
+iterations or function evaluations.
+See Singer &amp; Nead <cite data-cite="Singer2009NelderMead">(<a href="http://dx.doi.org/10.4249/scholarpedia.2928">Singer &amp; Mead,
+2009</a>)</cite> and references therein for a complete description of the
+algorithm and the simplex transformations.</p>
+<h1 id="uncertainties-in-parameter-estimation">Uncertainties in parameter estimation</h1>
+<p>For parameter estimation, Spendley et al. <cite data-cite="Spendley1962Sequential">(<a href="http://dx.doi.org/10.1080/00401706.1962.10490033">Spendley et al., 1962</a>)</cite> and Nelder
+&amp; Mead <cite data-cite="Nelder1965Simplex">(<a href="http://dx.doi.org/10.1093/comjnl/7.4.308">Nelder &amp; Mead,
+1965</a>)</cite> provide a method to estimate the uncertainties.
+Fitting a quadratic surface to the vertices and the midpoints of the edges of
+the final simplex yields an estimate for the variance--covariance matrix.
+The variance--covariance matrix is $\mathbf{Q} \mathbf{B}^{-1} \mathbf{Q}^T$ as
+originally given by Nelder &amp; Mead <cite data-cite="Nelder1965Simplex">(<a href="http://dx.doi.org/10.1093/comjnl/7.4.308">Nelder
+&amp; Mead, 1965</a>)</cite>, despite the erratum on the original paper.
+The errors are the square roots of the diagonal terms 
+<cite data-cite="Bevington2003Data">([Bevington &amp; Robinson, 2003])</cite>.</p>
+<h1 id="implementation">Implementation</h1>
+<p>Scientific Python 
+<cite data-cite="Jones2001SciPy">(<a href="http://www.scipy.org">Jones et al., 2001</a>)</cite>
+<cite data-cite="Oliphant2007Python">(<a href="http://dx.doi.org/10.1109/mcse.2007.58">Oliphant, 2007</a>)</cite>
+implements the Nelder--Mead method for the <a href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html">scipy.optimize.minimize</a>
+function.
+Note that this implementation only returns the vertex with the lowest function
+value, but not the whole final simplex.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">
+In [1]:
+</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight-ipynb"><pre class="ipynb"><span class="c"># ******NOTICE***************</span>
+<span class="c"># optimize.py module by Travis E. Oliphant</span>
+<span class="c">#</span>
+<span class="c"># You may copy and use this module as you see fit with no</span>
+<span class="c"># guarantee implied provided you keep this notice in all copies.</span>
+<span class="c"># *****END NOTICE************</span>
+
+<span class="c"># numpy</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">scipy.optimize</span>
+
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">asfarray</span>
+<span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">scipy.optimize.optimize</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_check_unknown_options</span><span class="p">,</span> <span class="n">wrap_function</span><span class="p">,</span> <span class="n">_status_message</span><span class="p">,</span> <span class="n">OptimizeResult</span>
+<span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_neldermead_errors</span><span class="p">(</span>
+    <span class="n">sim</span><span class="p">,</span> <span class="n">fsim</span><span class="p">,</span> <span class="n">func</span>
+<span class="p">):</span>
+    <span class="c"># fit quadratic coefficients</span>
+    <span class="n">fun</span> <span class="o">=</span> <span class="n">func</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sim</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">sim</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">6</span><span class="p">]][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">sim</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">6</span><span class="p">]][</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">assert</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="p">],</span> <span class="n">sim</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">assert</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">],</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">sim</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">sim</span><span class="p">[</span><span class="n">j</span><span class="p">])))</span>
+
+    <span class="n">y</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">nan</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">fsim</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">fun</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">])</span>
+
+    <span class="n">y0i</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">6</span><span class="p">]][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">:,</span><span class="mi">1</span><span class="p">:,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="n">y0i</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+
+    <span class="n">y0j</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">6</span><span class="p">]][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">:,</span> <span class="mi">1</span><span class="p">:]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="n">y0j</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+
+    <span class="n">b</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">y0i</span> <span class="o">-</span> <span class="n">y0j</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">abs</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">fsim</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">fsim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]))</span> <span class="o">&lt;</span> <span class="mf">1e-12</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">j</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">assert</span> <span class="nb">abs</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">fsim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span>
+                <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]))</span> <span class="o">&lt;</span> <span class="mf">1e-12</span>
+
+    <span class="n">q</span> <span class="o">=</span> <span class="p">(</span><span class="n">sim</span> <span class="o">-</span> <span class="n">sim</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">T</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">q</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">sim</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">sim</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    
+    <span class="n">varco</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">b</span><span class="p">),</span> <span class="n">q</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">varco</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">minimize_neldermead_witherrors</span><span class="p">(</span>
+    <span class="n">fun</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span> <span class="n">callback</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+    <span class="n">xtol</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span> <span class="n">ftol</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span> <span class="n">maxiter</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">maxfev</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+    <span class="n">disp</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">return_all</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">with_errors</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">unknown_options</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Minimization of scalar function of one or more variables using the</span>
+<span class="sd">    Nelder-Mead algorithm.</span>
+
+<span class="sd">    Options for the Nelder-Mead algorithm are:</span>
+<span class="sd">        disp : bool</span>
+<span class="sd">            Set to True to print convergence messages.</span>
+<span class="sd">        xtol : float</span>
+<span class="sd">            Relative error in solution `xopt` acceptable for convergence.</span>
+<span class="sd">        ftol : float</span>
+<span class="sd">            Relative error in ``fun(xopt)`` acceptable for convergence.</span>
+<span class="sd">        maxiter : int</span>
+<span class="sd">            Maximum number of iterations to perform.</span>
+<span class="sd">        maxfev : int</span>
+<span class="sd">            Maximum number of function evaluations to make.</span>
+
+<span class="sd">    This function is called by the `minimize` function with</span>
+<span class="sd">    `method=minimize_neldermead_with_errors`. It is not supposed to be called directly.</span>
+<span class="sd">    """</span>
+    <span class="n">maxfun</span> <span class="o">=</span> <span class="n">maxfev</span>
+    <span class="n">retall</span> <span class="o">=</span> <span class="n">return_all</span>
+
+    <span class="n">fcalls</span><span class="p">,</span> <span class="n">func</span> <span class="o">=</span> <span class="n">wrap_function</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+    <span class="n">x0</span> <span class="o">=</span> <span class="n">asfarray</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span>
+    <span class="n">rank</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x0</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="n">rank</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">"Initial guess must be a scalar or rank-1 sequence."</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">maxiter</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">maxiter</span> <span class="o">=</span> <span class="n">N</span> <span class="o">*</span> <span class="mi">200</span>
+    <span class="k">if</span> <span class="n">maxfun</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">maxfun</span> <span class="o">=</span> <span class="n">N</span> <span class="o">*</span> <span class="mi">200</span>
+
+    <span class="n">rho</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">chi</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">psi</span> <span class="o">=</span> <span class="mf">0.5</span>
+    <span class="n">sigma</span> <span class="o">=</span> <span class="mf">0.5</span>
+    <span class="n">one2np1</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">sim</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">x0</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sim</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">x0</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">fsim</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,),</span> <span class="nb">float</span><span class="p">)</span>
+    <span class="n">sim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">x0</span>
+    <span class="k">if</span> <span class="n">retall</span><span class="p">:</span>
+        <span class="n">allvecs</span> <span class="o">=</span> <span class="p">[</span><span class="n">sim</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+    <span class="n">fsim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span>
+    <span class="n">nonzdelt</span> <span class="o">=</span> <span class="mf">0.05</span>
+    <span class="n">zdelt</span> <span class="o">=</span> <span class="mf">0.00025</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">nonzdelt</span><span class="p">)</span><span class="o">*</span><span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">zdelt</span>
+
+        <span class="n">sim</span><span class="p">[</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">fsim</span><span class="p">[</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span>
+
+    <span class="n">ind</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">fsim</span><span class="p">)</span>
+    <span class="n">fsim</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="n">fsim</span><span class="p">,</span> <span class="n">ind</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="c"># sort so sim[0,:] has the lowest function value</span>
+    <span class="n">sim</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="n">ind</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">iterations</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="n">fcalls</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">maxfun</span> <span class="ow">and</span> <span class="n">iterations</span> <span class="o">&lt;</span> <span class="n">maxiter</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">sim</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">sim</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span> <span class="o">&lt;=</span> <span class="n">xtol</span> <span class="ow">and</span>
+                <span class="n">numpy</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">fsim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">fsim</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))</span> <span class="o">&lt;=</span> <span class="n">ftol</span><span class="p">):</span>
+            <span class="k">break</span>
+
+        <span class="n">xbar</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">add</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="n">sim</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">N</span>
+        <span class="n">xr</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">rho</span><span class="p">)</span> <span class="o">*</span> <span class="n">xbar</span> <span class="o">-</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">sim</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">fxr</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">xr</span><span class="p">)</span>
+        <span class="n">doshrink</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">if</span> <span class="n">fxr</span> <span class="o">&lt;</span> <span class="n">fsim</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="n">xe</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">chi</span><span class="p">)</span> <span class="o">*</span> <span class="n">xbar</span> <span class="o">-</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">chi</span> <span class="o">*</span> <span class="n">sim</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">fxe</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">xe</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">fxe</span> <span class="o">&lt;</span> <span class="n">fxr</span><span class="p">:</span>
+                <span class="n">sim</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">xe</span>
+                <span class="n">fsim</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">fxe</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">sim</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">xr</span>
+                <span class="n">fsim</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">fxr</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c"># fsim[0] &lt;= fxr</span>
+            <span class="k">if</span> <span class="n">fxr</span> <span class="o">&lt;</span> <span class="n">fsim</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]:</span>
+                <span class="n">sim</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">xr</span>
+                <span class="n">fsim</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">fxr</span>
+            <span class="k">else</span><span class="p">:</span>  <span class="c"># fxr &gt;= fsim[-2]</span>
+                <span class="c"># Perform contraction</span>
+                <span class="k">if</span> <span class="n">fxr</span> <span class="o">&lt;</span> <span class="n">fsim</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="n">xc</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">psi</span> <span class="o">*</span> <span class="n">rho</span><span class="p">)</span> <span class="o">*</span> <span class="n">xbar</span> <span class="o">-</span> <span class="n">psi</span> <span class="o">*</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">sim</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="n">fxc</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">xc</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="n">fxc</span> <span class="o">&lt;=</span> <span class="n">fxr</span><span class="p">:</span>
+                        <span class="n">sim</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">xc</span>
+                        <span class="n">fsim</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">fxc</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">doshrink</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c"># Perform an inside contraction</span>
+                    <span class="n">xcc</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">psi</span><span class="p">)</span> <span class="o">*</span> <span class="n">xbar</span> <span class="o">+</span> <span class="n">psi</span> <span class="o">*</span> <span class="n">sim</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="n">fxcc</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">xcc</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="n">fxcc</span> <span class="o">&lt;</span> <span class="n">fsim</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                        <span class="n">sim</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">xcc</span>
+                        <span class="n">fsim</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">fxcc</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">doshrink</span> <span class="o">=</span> <span class="mi">1</span>
+
+                <span class="k">if</span> <span class="n">doshrink</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">one2np1</span><span class="p">:</span>
+                        <span class="n">sim</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">sim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">sigma</span> <span class="o">*</span> <span class="p">(</span><span class="n">sim</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">sim</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                        <span class="n">fsim</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">sim</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+
+        <span class="n">ind</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">fsim</span><span class="p">)</span>
+        <span class="n">sim</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="n">ind</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">fsim</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="n">fsim</span><span class="p">,</span> <span class="n">ind</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">callback</span><span class="p">(</span><span class="n">sim</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">iterations</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">retall</span><span class="p">:</span>
+            <span class="n">allvecs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sim</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="n">sim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">fval</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">fsim</span><span class="p">)</span>
+    <span class="n">warnflag</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">errors</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">if</span> <span class="n">fcalls</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">maxfun</span><span class="p">:</span>
+        <span class="n">warnflag</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="n">_status_message</span><span class="p">[</span><span class="s">'maxfev'</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">disp</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">'Warning: '</span> <span class="o">+</span> <span class="n">msg</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">iterations</span> <span class="o">&gt;=</span> <span class="n">maxiter</span><span class="p">:</span>
+        <span class="n">warnflag</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="n">_status_message</span><span class="p">[</span><span class="s">'maxiter'</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">disp</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">'Warning: '</span> <span class="o">+</span> <span class="n">msg</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="n">_status_message</span><span class="p">[</span><span class="s">'success'</span><span class="p">]</span>
+        <span class="n">errors</span> <span class="o">=</span> <span class="n">_neldermead_errors</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="n">fsim</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>       
+        <span class="k">if</span> <span class="n">disp</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"         Current function value: </span><span class="si">%f</span><span class="s">"</span> <span class="o">%</span> <span class="n">fval</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"         Iterations: </span><span class="si">%d</span><span class="s">"</span> <span class="o">%</span> <span class="n">iterations</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"         Function evaluations: </span><span class="si">%d</span><span class="s">"</span> <span class="o">%</span> <span class="n">fcalls</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">OptimizeResult</span><span class="p">(</span><span class="n">fun</span><span class="o">=</span><span class="n">fval</span><span class="p">,</span> <span class="n">nit</span><span class="o">=</span><span class="n">iterations</span><span class="p">,</span> <span class="n">nfev</span><span class="o">=</span><span class="n">fcalls</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                            <span class="n">status</span><span class="o">=</span><span class="n">warnflag</span><span class="p">,</span> <span class="n">success</span><span class="o">=</span><span class="p">(</span><span class="n">warnflag</span> <span class="o">==</span> <span class="mi">0</span><span class="p">),</span>
+			    <span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="n">errors</span><span class="p">,</span> <span class="n">sim</span><span class="o">=</span><span class="n">sim</span><span class="p">,</span>
+                            <span class="n">fsim</span><span class="o">=</span><span class="n">fsim</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">retall</span><span class="p">:</span>
+        <span class="n">result</span><span class="p">[</span><span class="s">'allvecs'</span><span class="p">]</span> <span class="o">=</span> <span class="n">allvecs</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+<span class="n">x0</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.3</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">1.9</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">]</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">scipy</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">rosen</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s">'Nelder-Mead'</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+
+<span class="n">res_witherrors</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span>
+    <span class="n">scipy</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">rosen</span><span class="p">,</span>
+    <span class="n">x0</span><span class="p">,</span>
+    <span class="n">method</span><span class="o">=</span><span class="n">minimize_neldermead_witherrors</span>
+<span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">res_witherrors</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+       x: array([ 0.99910115,  0.99820923,  0.99646346,  0.99297555,  0.98600385])
+     nit: 141
+ success: True
+     fun: 6.6174817088845322e-05
+ message: &amp;apos;Optimization terminated successfully.&amp;apos;
+    nfev: 243
+  status: 0
+ success: True
+    fsim: array([  6.61748171e-05,   6.64266969e-05,   6.66640269e-05,
+         6.69424827e-05,   6.70671859e-05,   6.70870519e-05])
+     sim: array([[ 0.99910115,  0.99820923,  0.99646346,  0.99297555,  0.98600385],
+       [ 0.99909442,  0.99820319,  0.99645812,  0.99302291,  0.98608273],
+       [ 0.99908478,  0.99820409,  0.9964653 ,  0.99296511,  0.9859391 ],
+       [ 0.99909641,  0.99824295,  0.99644354,  0.9929541 ,  0.98596017],
+       [ 0.99907389,  0.998211  ,  0.99645267,  0.99294537,  0.98597485],
+       [ 0.99907893,  0.99819173,  0.99644522,  0.99298154,  0.986004  ]])
+     fun: 6.6174817088845322e-05
+     nit: 141
+       x: array([ 0.99910115,  0.99820923,  0.99646346,  0.99297555,  0.98600385])
+  errors: array([ 0.12236908,  0.22373152,  0.43670037,  0.86737782,  1.72549539])
+ message: &amp;apos;Optimization terminated successfully.&amp;apos;
+  status: 0
+    nfev: 258
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<p><em><a href="http://notebooks.asorge.de">This work</a> is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/">Creative
+Commons Attribution 4.0 International
+License</a>.</em></p>
+</blockquote>
+</div>
+</div>
+</div></p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3 well well-sm" id="sidebar">
+
+<aside>
+    <section>
+        <ul class="list-group list-group-flush">
+
+
+
+                <li class="list-group-item"><a href="http://nb.asorge.de/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+                    <ul class="list-group " id="tags">
+                        <li class="list-group-item tag-1">
+                            <a href="http://nb.asorge.de/tag/diss.html">
+                                diss
+                            </a>
+                        </li>
+                        <li class="list-group-item tag-1">
+                            <a href="http://nb.asorge.de/tag/statistics.html">
+                                statistics
+                            </a>
+                        </li>
+                        <li class="list-group-item tag-2">
+                            <a href="http://nb.asorge.de/tag/data_analysis.html">
+                                data_analysis
+                            </a>
+                        </li>
+                        <li class="list-group-item tag-4">
+                            <a href="http://nb.asorge.de/tag/optimization.html">
+                                optimization
+                            </a>
+                        </li>
+                        <li class="list-group-item tag-4">
+                            <a href="http://nb.asorge.de/tag/.html">
+                                
+                            </a>
+                        </li>
+                    </ul>
+                </li>    
+
+        </ul>
+    </section>
+
+</aside>        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2014 Andreas Sorge
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>              <p><small>  <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by/4.0/80x15.png" /></a>
+    Content
+  licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>, except where indicated otherwise.
+</small></p>
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://nb.asorge.de/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://nb.asorge.de/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="http://nb.asorge.de/theme/js/respond.min.js"></script>
+
+</body>
+</html>
